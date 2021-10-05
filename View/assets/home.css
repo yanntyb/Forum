@@ -1,0 +1,33 @@
+#home-main{
+    width:100%;
+    height:100%;
+    padding:2%;
+}
+
+.home-article-content{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    padding: 1%;
+}
+
+.home-article-content:hover{
+    box-shadow: 3px 3px 21px 2px rgba(0,0,0,0.4);
+}
+
+.home-article-date{
+    font-style: italic;
+    align-self: flex-end;
+    padding-left: 2%;
+}
+
+.home-article-title{
+    padding-left: 2%;
+}
+
+.home-article-img{
+    width: 70px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
