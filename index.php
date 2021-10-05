@@ -21,6 +21,7 @@ if(isset($_GET["page"])){
         case "article":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             //If render_by_id return false mean that articleManager couldnt resolved the article based on his id ($_GET["article"]
+            //If so user is redirect to home page
             if((new ArticleController)->render_by_id($_GET["article"]) === false){
                 header("Location: index.php?page=home");
                 die();
