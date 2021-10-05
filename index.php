@@ -20,6 +20,7 @@ if(isset($_GET["page"])){
             die();
         case "article":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+            //If render_by_id return false mean that articleManager couldnt resolved the article based on his id ($_GET["article"]
             if((new ArticleController)->render_by_id($_GET["article"]) === false){
                 header("Location: index.php?page=home");
                 die();
