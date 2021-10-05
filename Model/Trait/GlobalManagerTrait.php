@@ -32,20 +32,24 @@ trait GlobalManagerTrait
         $conn->bindValue(":id", $id);
         if($conn->execute()){
             $results = $conn->fetch();
-            //Créée l'entité qui porte le nom $name
-            $obj = new $this->name;
-            //Parcoure toute les valeurs fetch
-            foreach($results as $col => $value){
-                //setId(), setName(), ...
-                $methode = "set" . ucfirst($col);
-                //Check si la methode existe
-                if(method_exists($obj,$methode)){
-                    //Si elle existe alors on définie
-                    $obj->$methode($value);
+            if($results){
+                //Créée l'entité qui porte le nom $name
+                $obj = new $this->name;
+                //Parcoure toute les valeurs fetch
+                foreach($results as $col => $value){
+                    //setId(), setName(), ...
+                    $methode = "set" . ucfirst($col);
+                    //Check si la methode existe
+                    if(method_exists($obj,$methode)){
+                        //Si elle existe alors on définie
+                        $obj->$methode($value);
+                    }
                 }
+                return $obj;
             }
-            return $obj;
+            return false;
         }
+        return false;
     }
 
     public function getAllEntity(): array

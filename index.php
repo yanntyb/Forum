@@ -17,5 +17,13 @@ if(isset($_GET["page"])){
         case "home":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_home();
+            die();
+        case "article":
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+            if((new ArticleController)->render_by_id($_GET["article"]) === false){
+                header("Location: index.php?page=home");
+                die();
+            }
+            die();
     }
 }
