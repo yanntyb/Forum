@@ -8,6 +8,7 @@
     <title><?= $title ?></title>
 </head>
 <body>
+<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/View/_partials/navbar.php"?>
 <?= $html ?>
 </body>
 </html>

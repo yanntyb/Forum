@@ -4,7 +4,7 @@ namespace Controller\Traits;
 
 trait RenderViewTrait {
 
-    public function render(string $view, string $title, array $var = null) {
+    public function render(string $view, string $title, $var = null) {
         ob_start();
         require_once $_SERVER['DOCUMENT_ROOT'] . "/View/$view.view.php";
         $html = ob_get_clean();

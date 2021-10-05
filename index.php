@@ -6,8 +6,17 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Trait/RenderViewTrait.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Trait/GlobalManagerTrait.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Trait/GlobalEntityTrait.php";
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Role.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/RoleManager.php";
+
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/User.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/UserManager.php";
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Category.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/CategoryManager.php";
+
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Comment.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/CommentManager.php";
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Article.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/ArticleManager.php";
@@ -26,6 +35,10 @@ if(isset($_GET["page"])){
                 header("Location: index.php?page=home");
                 die();
             }
+            die();
+        case "login":
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
+            (new HomeController)->render_connect();
             die();
     }
 }

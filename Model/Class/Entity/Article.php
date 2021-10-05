@@ -9,6 +9,7 @@ class Article
     private string $title;
     private string $content;
     private Category $category;
+    private User $user;
 
     /**
      * @return string
@@ -61,6 +62,24 @@ class Article
     public function setCategory(Category $category): Article
     {
         $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUser(User $user): Article
+    {
+        $this->user = $user;
         return $this;
     }
 

@@ -36,15 +36,7 @@ trait GlobalManagerTrait
                 //Créée l'entité qui porte le nom $name
                 $obj = new $this->name;
                 //Parcoure toute les valeurs fetch
-                foreach($results as $col => $value){
-                    //setId(), setName(), ...
-                    $methode = "set" . ucfirst($col);
-                    //Check si la methode existe
-                    if(method_exists($obj,$methode)){
-                        //Si elle existe alors on définie
-                        $obj->$methode($value);
-                    }
-                }
+                $obj = $this->getObj($results, $obj);
                 return $obj;
             }
             return false;
@@ -60,19 +52,7 @@ trait GlobalManagerTrait
             $results = $conn->fetchAll();
             foreach($results as $result){
                 $obj = $this->createObj($this->name,true);
-                foreach($result as $col => $value){
-                    $obj2 = $this->createObj($col,false,$value);
-                    $methode = "set" . ucfirst(explode("_",$col)[0]);
-                    if(method_exists($obj,$methode)){
-                        if(is_null($obj2)){
-                            $obj = $obj->$methode($value);
-                        }
-                        else{
-                            $obj = $obj->$methode($obj2);
-                        }
-                    }
-
-                }
+                $obj = $this->getObj($result, $obj);
                 $return[] = $obj;
             }
         }
@@ -134,5 +114,26 @@ trait GlobalManagerTrait
                 return $manager->getSingleEntity($id);
             }
         }
+    }
+
+    /**
+     * @param $results
+     * @param $obj
+     * @return mixed
+     */
+    public function getObj($results, $obj)
+    {
+        foreach ($results as $col => $value) {
+            $obj2 = $this->createObj($col, false, $value);
+            $methode = "set" . ucfirst(explode("_", $col)[0]);
+            if (method_exists($obj, $methode)) {
+                if (is_null($obj2)) {
+                    $obj = $obj->$methode($value);
+                } else {
+                    $obj = $obj->$methode($obj2);
+                }
+            }
+        }
+        return $obj;
     }
 }

@@ -12,9 +12,9 @@ class ArticleController
      */
     public function render_by_id($id): bool{
         $manager = new ArticleManager();
-        $result = [$manager->getSingleEntity($id)];
-        if($result[0]){
-            $this->render("Article/guest",$result[0]->getTitle(),$result);
+        $result = $manager->getSingleEntity($id);
+        if($result){
+            $this->render("Article/single",$result->getTitle(),$result);
             return true;
         }
         return false;
