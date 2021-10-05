@@ -2,7 +2,7 @@
 <div id="main">
     <div>
         <h2>Connexion</h2>
-        <form action="" method="post">
+        <form action="index.php?page=checkLog" method="post">
             <div>
                 <input name="name" type="text" placeholder="username">
             </div>
@@ -16,7 +16,7 @@
     </div>
     <div>
         <h2>Inscription</h2>
-        <form action="" method="post">
+        <form action="index.php?page=checkRegister" method="post">
             <div>
                 <input name="name" type="text" placeholder="username">
             </div>

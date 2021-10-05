@@ -1,5 +1,8 @@
 <?php
 
+
+session_start();
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/DB.php";
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Trait/RenderViewTrait.php";
@@ -40,5 +43,24 @@ if(isset($_GET["page"])){
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_connect();
             die();
+        case "checkLog":
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
+            $user = (new LoginController)->checkLog($_POST["name"],$_POST["pass"]);
+            if($user){
+                $_SESSION["user"] = serialize($user);
+                header("Location: index.php");
+            }
+            else{
+                header("Location: index.php?page=login");
+            }
+        default:
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
+            (new HomeController)->render_home();
+            die();
     }
+}
+else{
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
+    (new HomeController)->render_home();
+    die();
 }
