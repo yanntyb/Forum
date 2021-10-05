@@ -18,6 +18,10 @@ class ArticleController
             return true;
         }
         return false;
+    }
 
+    public function render_create(){
+        $category = (new CategoryManager)->getAllEntity();
+        $this->render("Article/create","Création d'une publication",$category);
     }
 }

@@ -43,6 +43,9 @@ if(isset($_GET["page"])){
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_connect();
             die();
+        case "deco":
+            unset($_SESSION["user"]);
+            header("Location: index.php?page=login");
         case "checkLog":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
             $user = (new LoginController)->checkLog($_POST["name"],$_POST["pass"]);
@@ -53,6 +56,11 @@ if(isset($_GET["page"])){
             else{
                 header("Location: index.php?page=login");
             }
+            die();
+        case "create":
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+            (new ArticleController)->render_create();
+            die();
         default:
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_home();
