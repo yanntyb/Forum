@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="View/assets/create.css">
 <div id="main">
     <div>
-        <form action="">
+        <form action="?page=publish" method="post">
             <div>
                 <h2>Titre :</h2>
                 <input name="title" type="text">

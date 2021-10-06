@@ -59,8 +59,25 @@ if(isset($_GET["page"])){
             die();
         case "create":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-            (new ArticleController)->render_create();
+            $user = unserialize($_SESSION["user"]);
+            if($user){
+                (new ArticleController)->render_create();
+            }
+            else{
+                header("Location: index.php");
+            }
             die();
+        case "publish":
+            if(isset($_POST["title"], $_POST["content"], $_POST["category"], $_SESSION["user"])){
+                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+                if((new ArticleController)->publish($_POST["title"],$_POST["content"],$_POST["category"])){
+                    header("Location: index.php?message=Poste bien publié");
+                };
+            }
+            else{
+                header("Location: index.php");
+            }
+
         default:
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_home();
