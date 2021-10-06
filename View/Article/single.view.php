@@ -18,7 +18,7 @@
         <h1 class="single-title">Commentaire(s)</h1>
         <?php
             foreach((new CommentManager())->getArticleComment($var->getId()) as $comment){?>
-                <div class="comment-single">
+                <div id="comment-id-<?= $comment->getId() ?>" class="comment-single">
                     <div class="comment-user">
                         <img class="comment-user-img" src="<?= $comment->getUser()->getImg() ?>" alt="<?= $comment->getUser()->getName() . '-profile-pic' ?>">
                         <h4 class="comment-user-name"><?= $comment->getUser()->getName() ?></h4>
@@ -33,16 +33,17 @@
             $sessionUser = unserialize($_SESSION["user"]) ?? false;
             if($sessionUser){
                 ?>
-                <form class="comment-single">
+                <form action="index.php?page=addcomment" method="post" class="comment-single">
                     <div class="comment-user">
                         <img src="<?= $sessionUser->getImg() ?>" alt="<?= $sessionUser->getName() . '-profile-pic' ?>" class="comment-user-img">
                         <h4 class="comment-user-name"><?= $sessionUser->getName() ?></h4>
                     </div>
                     <div class="comment-content">
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <textarea name="content" id="" cols="30" rows="10"></textarea>
                         <div id="submit">
                             <input type="submit" value="Envoyer">
                         </div>
+                        <input class="hidden" type="text" name="article-id" value="<?= $var->getId()?>">
                     </div>
                 </form><?php
             }

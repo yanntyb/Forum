@@ -68,6 +68,10 @@ class ArticleController
         }
     }
 
+    /**
+     * Encode all articles in dataBase in json to be displayed by JS when one is removed with AJAX
+     * @return false|string
+     */
     public function all_to_json(){
         if(isset($_SESSION["user"]) && !is_array(unserialize($_SESSION["user"]))){
             $userId = unserialize($_SESSION["user"])->getId();
@@ -95,5 +99,24 @@ class ArticleController
             ];
         }
         return json_encode($return);
+    }
+
+    /**
+     * Add comment to article based on article's id and user's id
+     * @param $content
+     * @param $articleId
+     * @param $user
+     * @return bool
+     */
+    public function addComment($content, $articleId,$user)
+    {
+        if((new ArticleManager)->getSingleEntity($articleId)){
+            $comment = (new CommentManager)->addComment($content,$articleId,$user->getId());
+            if($comment){
+                return $comment;
+            }
+            return false;
+        }
+        return false;
     }
 }

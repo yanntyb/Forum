@@ -33,13 +33,13 @@ if(isset($_GET["page"])){
             //If so user is redirect to home page
             if((new ArticleController)->render_by_id($_GET["article"]) === false){
                 header("Location: index.php?page=home");
-                die();
+                break;
             }
-            die();
+            break;
         case "login":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_connect();
-            die();
+            break;
         case "deco":
             unset($_SESSION["user"]);
             header("Location: index.php?page=login");
@@ -54,10 +54,9 @@ if(isset($_GET["page"])){
             else{
                 header("Location: index.php?page=login");
             }
-            die();
+            break;
         case "checkRegister":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
-
         case "create":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             $user = unserialize($_SESSION["user"]);
@@ -67,7 +66,7 @@ if(isset($_GET["page"])){
             else{
                 header("Location: index.php");
             }
-            die();
+            break;
         case "publish":
             if(isset($_POST["title"], $_POST["content"], $_POST["category"], $_SESSION["user"])){
                 require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
@@ -97,6 +96,18 @@ if(isset($_GET["page"])){
                 header("Location: index.php");
             }
             break;
+        case "addcomment":
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+            if(isset($_POST["content"]) && $_POST["content"] !== ""){
+                $user = unserialize($_SESSION["user"]);
+                if(!is_array($user)){
+                    $comment_id = (new ArticleController)->addComment($_POST["content"],$_POST["article-id"],$user);
+                    if($comment_id){
+                        header("Location: index.php?page=article&article=" . $_POST["article-id"] . "#comment-id-" . $comment_id);
+                    }
+                }
+            }
+
         default:
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_home();
