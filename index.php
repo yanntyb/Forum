@@ -46,6 +46,7 @@ if(isset($_GET["page"])){
         case "deco":
             unset($_SESSION["user"]);
             header("Location: index.php?page=login");
+            break;
         case "checkLog":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
             $user = (new LoginController)->checkLog($_POST["name"],$_POST["pass"]);
@@ -82,9 +83,11 @@ if(isset($_GET["page"])){
             $data = json_decode(file_get_contents("php://input"));
             if($data){
                 $user = unserialize($_SESSION["user"]);
-                if($user){
+                if(!is_array($user)){
                     require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-                    (new ArticleController)->delete($data["id"],$user->getId());
+                    if((new ArticleController)->delete($data->id,$user->getId())){
+                        echo (new ArticleController)->all_to_json();
+                    };
                 }
                 else{
                     header("Location: index.php");

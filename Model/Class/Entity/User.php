@@ -9,24 +9,7 @@ class User
     private string $name;
     private string $pass;
     private Role $role;
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     * @return $this
-     */
-    public function setName(string $name): User
-    {
-        $this->name = $name;
-        return $this;
-    }
+    private string $img;
 
     /**
      * @return string
@@ -64,5 +47,22 @@ class User
         return $this;
     }
 
+    /**
+     * @param string $img
+     * @return $this*
+     */
+    public function setImg(string $img): User
+    {
+        $this->img = "View/_partials/user_pic/" . $img;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImg(): string
+    {
+        return $this->img;
+    }
 
 }
