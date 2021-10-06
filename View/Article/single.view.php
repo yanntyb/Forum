@@ -43,7 +43,6 @@
                         <div id="submit">
                             <input type="submit" value="Envoyer">
                         </div>
-
                     </div>
                 </form><?php
             }
