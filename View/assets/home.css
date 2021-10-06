@@ -29,7 +29,9 @@
 .home-article-date{
     font-style: italic;
     align-self: flex-end;
+    text-align: right;
     padding-left: 2%;
+    width: 100%;
 }
 
 .home-article-title{

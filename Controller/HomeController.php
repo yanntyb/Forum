@@ -16,7 +16,13 @@ class HomeController
     }
 
     public function render_connect(){
-        $this->render("Home/connexion","Connexion");
+        if(isset($_GET["error"])){
+            $var = $_GET["error"]["message"];
+        }
+        else{
+            $var = null;
+        }
+        $this->render("Home/connexion","Connexion",$var);
     }
 
     public function checkLog($name,$pass): bool

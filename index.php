@@ -1,7 +1,6 @@
 <?php
-
-
-session_start();
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/DB.php";
 
@@ -24,12 +23,10 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/CommentManager.ph
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Article.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/ArticleManager.php";
 
+session_start();
+
 if(isset($_GET["page"])){
     switch($_GET["page"]){
-        case "home":
-            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
-            (new HomeController)->render_home();
-            die();
         case "article":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             //If render_by_id return false mean that articleManager couldnt resolved the article based on his id ($_GET["article"]
@@ -58,6 +55,9 @@ if(isset($_GET["page"])){
                 header("Location: index.php?page=login");
             }
             die();
+        case "checkRegister":
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
+
         case "create":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             $user = unserialize($_SESSION["user"]);

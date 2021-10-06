@@ -16,7 +16,8 @@ class UserManager
                     return (new User)
                         ->setName($result["name"])
                         ->setId($result["id"])
-                        ->setRole((new RoleManager)->getSingleEntity($result["role_fk"]));
+                        ->setRole((new RoleManager)->getSingleEntity($result["role_fk"]))
+                        ->setImg($result["img"]);
                 }
             }
             return false;

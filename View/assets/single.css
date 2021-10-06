@@ -22,7 +22,7 @@
 
 #single-article{
     padding: 1%;
-    border: 1px solid black;
+    border: 1px solid darkgrey;
     width:100%;
 }
 
@@ -44,6 +44,11 @@
     width: 70px;
 }
 
+#single-article-content{
+    padding: 2%;
+    border: 1px solid darkgrey;
+}
+
 #comment{
     width:100%;
     height:100%;
@@ -55,7 +60,7 @@
 }
 
 .comment-single{
-    border:1px solid black;
+    border:1px solid darkgrey;
     padding:1%;
 }
 
@@ -71,4 +76,28 @@
 
 .comment-user-name:after{
     content: ":";
+}
+
+
+input , textarea {
+    padding: 2%;
+    font-size: 16px;
+    border-width: 1px;
+    width: 100%;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: solid;
+    border-radius: 0px;
+    box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+    text-shadow: -50px 0px 0px rgba(66,66,66,.0);
+    resize: none;
+}
+
+textarea {
+    outline:none;
+}
+
+input[type=submit]:hover{
+    cursor: pointer;
 }
