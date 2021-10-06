@@ -30,7 +30,7 @@ function render(icon){
                     <aside class="home-article-date">date</aside>
                 </a>
                 `
-            if(article.connected.id === article.user.id){
+            if(article.connected.id === article.user.id || article.user.role === "admin" || article.user.role === "mode"){
                 div.innerHTML += `
                     <div class="delete-container">
                             <i class="far fa-trash-alt delete" data-id="${article.id}"></i>

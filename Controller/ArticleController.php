@@ -51,11 +51,11 @@ class ArticleController
      * @param $user_id
      * @return bool
      */
-    public function delete($articleId,$user_id): bool
+    public function delete($articleId,$user): bool
     {
         $article = (new ArticleManager)->getSingleEntity($articleId);
         if($article){
-            if($article->getUser()->getId() === $user_id){
+            if($article->getUser()->getId() === $user->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){
                 (new ArticleManager)->deleteById($articleId);
                 return true;
             }

@@ -26,7 +26,7 @@
                 </a>
                 <?php
                 if($user){
-                    if($user->getId() === $article->getUser()->getId()){?>
+                    if($user->getId() === $article->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){?>
                         <div class="delete-container">
                             <i class="far fa-trash-alt delete" data-id="<?= $article->getId() ?>"></i>
                         </div>

@@ -85,7 +85,7 @@ if(isset($_GET["page"])){
                 $user = unserialize($_SESSION["user"]);
                 if(!is_array($user)){
                     require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-                    if((new ArticleController)->delete($data->id,$user->getId())){
+                    if((new ArticleController)->delete($data->id,$user)){
                         echo (new ArticleController)->all_to_json();
                     };
                 }
