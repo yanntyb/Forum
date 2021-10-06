@@ -36,8 +36,7 @@ trait GlobalManagerTrait
                 //Créée l'entité qui porte le nom $name
                 $obj = new $this->name;
                 //Parcoure toute les valeurs fetch
-                $obj = $this->getObj($results, $obj);
-                return $obj;
+                return $this->getObj($results, $obj);
             }
             return false;
         }

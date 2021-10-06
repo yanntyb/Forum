@@ -26,4 +26,19 @@ class ArticleManager
         }
         return false;
     }
+
+    /**
+     * Delete article from data base based on his id
+     * @param $articleId
+     * @return bool
+     */
+    public function deleteById($articleId): bool
+    {
+        $conn = $this->db->prepare("DELETE FROM article WHERE id = :id");
+        $conn->bindValue(":id",$articleId);
+        if($conn->execute()){
+            return true;
+        }
+        return false;
+    }
 }

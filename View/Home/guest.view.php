@@ -18,15 +18,33 @@
         <?php
         }
         foreach($var as $article){?>
-            <a style="background-color:<?= $article->getCategory()->getColor() ?>" href="?page=article&article=<?= $article->getId() ?>" class="home-article-content">
-                <img class="home-article-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png" alt="profile-pic">
-                <h2 class="home-article-title"><?= $article->getTitle() ?></h2>
-                <aside class="home-article-date">date</aside>
-            </a>
-            <?php
+            <div class="home-article-container">
+                <a class="home-article-content" style="background-color:<?= $article->getCategory()->getColor() ?>" href="?page=article&article=<?= $article->getId() ?>" >
+                    <img class="home-article-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png" alt="profile-pic">
+                    <h2 class="home-article-title"><?= $article->getTitle() ?></h2>
+                    <aside class="home-article-date">date</aside>
+                </a>
+                <?php
+                if($user){
+                    if($user->getId() === $article->getUser()->getId()){?>
+                        <div class="delete-container">
+                            <i class="far fa-trash-alt delete" data-id="<?= $article->getId() ?>"></i>
+                        </div>
+                    <?php
+                    }
+                }?>
+            </div><?php
         }
         ?>
-
     </div>
 </div>
+
+<?php
+if($user){?>
+    <script src="https://kit.fontawesome.com/78e483bd6f.js" crossorigin="anonymous"></script>
+    <script src="View/assets/post_delete.js"></script>
+<?php
+}
+?>
+
 

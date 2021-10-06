@@ -77,7 +77,23 @@ if(isset($_GET["page"])){
             else{
                 header("Location: index.php");
             }
-
+            break;
+        case "delete":
+            $data = json_decode(file_get_contents("php://input"));
+            if($data){
+                $user = unserialize($_SESSION["user"]);
+                if($user){
+                    require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+                    (new ArticleController)->delete($data["id"],$user->getId());
+                }
+                else{
+                    header("Location: index.php");
+                }
+            }
+            else{
+                header("Location: index.php");
+            }
+            break;
         default:
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_home();

@@ -43,4 +43,28 @@ class ArticleController
         }
         return false;
     }
+
+    /**
+     * Delete Article from data base based
+     * First check if connected user's id match with article's user's id
+     * @param $articleId
+     * @param $user_id
+     * @return bool
+     */
+    public function delete($articleId,$user_id): bool
+    {
+        $article = (new ArticleManager)->getSingleEntity($articleId);
+        if($article){
+            if($article->getUser()->getId() === $user_id){
+                (new ArticleManager)->deleteById($articleId);
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
 }
