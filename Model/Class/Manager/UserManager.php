@@ -37,11 +37,12 @@ class UserManager
      * @param $mail
      * @param string $name
      * @param string $pass
+     * @return bool
      */
-    public function insertUser($mail, string $name, string $pass){
+    public function insertUser($mail){
         $conn = $this->db->prepare("INSERT INTO user (name, pass) VALUES (:name, :pass)");
         $conn->bindValue(":name", $this->sanitize($mail));
-        $conn->bindValue(":pass","pass");
+        $conn->bindValue(":pass","");
         if($conn->execute()){
             return true;
         }

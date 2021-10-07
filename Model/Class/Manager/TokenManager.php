@@ -39,4 +39,24 @@ class TokenManager
             return "erreur lors de l'envoi du lien";
         }
     }
+
+    /**
+     * Remove token from database based on his id
+     * @param $tokenId
+     * @return bool
+     */
+    public function removeToken($tokenId): bool
+    {
+        $check = $this->getSingleEntity($tokenId);
+        if($check){
+            $conn = $this->db->prepare("DELETE FROM token WHERE id = :id");
+            $conn->bindValue(":id",$this->sanitize($tokenId));
+            if($conn->execute()){
+                return true;
+            }
+            return false;
+        }
+        return false;
+
+    }
 }

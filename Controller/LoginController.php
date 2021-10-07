@@ -24,11 +24,21 @@ class LoginController
         }
     }
 
+    /**
+     * Check Token then create a new User then remove Token from database
+     * @param $token
+     * @return false
+     */
     public function checkToken($token){
-        $tokenCheck = (new TokenManager)->getSingleEntity("token",$token);
+        $tokenCheck = (new TokenManager)->getSingleEntity($token,"token");
         if($tokenCheck){
-            (new UserManager)->insertUser($tokenCheck->getMail(),"mail","pass");
+            if((new UserManager)->insertUser($tokenCheck->getMail())){
+                (new TokenManager)->removeToken($tokenCheck->getId());
+                return $tokenCheck->getMail();
+            }
+            return false;
         }
+        return false;
     }
 
 }

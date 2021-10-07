@@ -49,10 +49,20 @@ if(isset($_GET["page"])){
             break;
         case "checkLog":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
-            $user = (new LoginController)->checkLog($_POST["name"],$_POST["pass"]);
-            if($user){
-                $_SESSION["user"] = serialize($user);
-                header("Location: index.php");
+            if(isset($_POST["name"], $_POST["pass"])){
+                if($_POST["name"] !== "" && $_POST["pass"] !== ""){
+                    $user = (new LoginController)->checkLog($_POST["name"],$_POST["pass"]);
+                    if($user){
+                        $_SESSION["user"] = serialize($user);
+                        header("Location: index.php");
+                    }
+                    else{
+                        header("Location: index.php?page=login");
+                    }
+                }
+                else{
+                    header("Location: index.php?page=login");
+                }
             }
             else{
                 header("Location: index.php?page=login");
@@ -71,6 +81,10 @@ if(isset($_GET["page"])){
                 require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
                 (new LoginController)->checkToken($_GET["token"]);
             }
+            else{
+                header("Location: index.php?page=login");
+            }
+            break;
         case "create":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             $user = unserialize($_SESSION["user"]);
