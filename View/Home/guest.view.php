@@ -24,9 +24,14 @@
             }?>
         <?php
         }
-        if($var[0] === []){?>
+        if($var["same"][0] && $var[0] === []){?>
             <div class="home-article-content create nothover">
-                <h2 class="home-article-title">Il n'y a aucun sujet dans cette categorie</h2>
+                <h2 class="home-article-title center">Il n'y a aucun sujet dans cette categorie</h2>
+            </div><?php
+        }
+        else if ($var[0] === []){?>
+            <div class="home-article-content create nothover">
+                <h2 class="home-article-title center">Il n'y a aucun sujet</h2>
             </div><?php
         }
         foreach($var[0] as $article){?>
@@ -42,7 +47,7 @@
                     <h2 class="home-article-title"><?= $article->getTitle() ?></h2>
                     <aside class="home-article-date"><?php echo $article->getDate();
                         if($user){
-                            if($user->getId() === $article->getUser()->getId()){?>
+                            if($user->getId() === $article->getUser()->getId() || $user->getRole()->getName() === "admin" || "mode"){?>
                                 <div class="delete-container">
                                     <i class="far fa-trash-alt delete" data-id="<?= $article->getId() ?>"></i>
                                 </div>
