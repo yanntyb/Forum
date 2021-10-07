@@ -44,5 +44,12 @@ function render(icon){
             })
         }
     }
-    req.send(JSON.stringify({"id": icon.dataset.id}));
+    let catId;
+    if(icon.dataset.id){
+        catId = icon.dataset.id;
+    }
+    else{
+        catId = false
+    }
+    req.send(JSON.stringify({"id": icon.dataset.id, "cat": catId}));
 }

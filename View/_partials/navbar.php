@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="View/assets/navbar.css">
 <div id="navbar">
     <a href="index.php">Accueil</a>
+    <a href="index.php?page=category">Categories</a>
     <?php
     if(isset($_SESSION["user"])){?>
 

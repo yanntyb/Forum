@@ -9,6 +9,7 @@ class Comment
     private string $content;
     private User $user;
     private Article $article;
+    private string $date;
 
     /**
      * @return string
@@ -63,6 +64,26 @@ class Comment
         $this->article = $article;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDate(): string
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $date
+     * @return $this
+     */
+    public function setDate(string $date): Comment
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+
 
 
 }

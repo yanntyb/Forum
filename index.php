@@ -61,6 +61,14 @@ if(isset($_GET["page"])){
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             $user = unserialize($_SESSION["user"]);
             if($user){
+                if(isset($_GET["cat"])){
+                    if((new CategoryManager)->getSingleEntity($_GET["cat"])){
+                        (new ArticleController)->render_create($_GET["cat"]);
+                    }
+                    else{
+                        (new ArticleController)->render_create();
+                    }
+                }
                 (new ArticleController)->render_create();
             }
             else{
@@ -80,6 +88,7 @@ if(isset($_GET["page"])){
             break;
         case "delete":
             $data = json_decode(file_get_contents("php://input"));
+            var_dump($data);
             if($data){
                 $user = unserialize($_SESSION["user"]);
                 if(!is_array($user)){
@@ -111,6 +120,10 @@ if(isset($_GET["page"])){
             if(isset($_GET["cat"])){
                 require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
                 (new HomeController)->render_home($_GET["cat"]);
+            }
+            else{
+                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
+                (new HomeController)->render_category();
             }
         default:
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";

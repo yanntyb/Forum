@@ -16,11 +16,12 @@ class ArticleManager
      */
     public function publish($title, $content, $category, $userId): bool
     {
-        $conn = $this->db->prepare("INSERT INTO article (title, content, category_fk, user_fk) VALUES (:title, :content, :category, :user)");
+        $conn = $this->db->prepare("INSERT INTO article (title, content, category_fk, user_fk, date) VALUES (:title, :content, :category, :user, :date)");
         $conn->bindValue(":title", $this->sanitize($title));
         $conn->bindValue(":content", $this->sanitize($content));
         $conn->bindValue(":category", $this->sanitize($category));
         $conn->bindValue(":user",$this->sanitize($userId));
+        $conn->bindValue(":date",date("d/m/Y H:m:s"));
         if($conn->execute()){
             return true;
         }

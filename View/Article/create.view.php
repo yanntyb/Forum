@@ -11,17 +11,24 @@
                 <textarea name="content"></textarea>
             </div>
             <div>
-                <h2>Categorie</h2>
-                <div class="select">
-                    <select name="category">
-                        <?php
-                        foreach($var as $cat){?>
-                            <option value="<?= $cat->getId()?>"><?= $cat->getName() ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </div>
+
+                    <?php
+                    if(!is_array($var)){?>
+                        <input name="category" disabled class="hidden" type="text" value="<?= $var->getId() ?>"><?php
+                    }
+                    else{?>
+                        <h2>Categorie</h2>
+                        <div class="select">
+                            <select name="category"><?php
+                            foreach($var as $cat){?>
+                                <option value="<?= $cat->getId()?>"><?= $cat->getName() ?></option><?php
+                            }?>
+                            </select>
+                        </div><?php
+                    }
+                    ?>
+
+
             </div>
             <div id="submit">
                 <input type="submit" value="Publier">

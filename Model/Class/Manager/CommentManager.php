@@ -32,10 +32,11 @@ class CommentManager
      */
     public function addComment($content, $articleId, $userId)
     {
-        $conn = $this->db->prepare("INSERT INTO comment (content, user_fk, article_fk) VALUES (:content, :user, :article)");
+        $conn = $this->db->prepare("INSERT INTO comment (content, user_fk, article_fk, date) VALUES (:content, :user, :article, :date)");
         $conn->bindValue(":content", $this->sanitize($content));
         $conn->bindValue(":user", $userId);
         $conn->bindValue(":article",$articleId);
+        $conn->bindValue(":date", date("d/m/Y H:m:s"));
         if($conn->execute()) {
             return $this->db->lastInsertId();
         }

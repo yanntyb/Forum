@@ -24,8 +24,13 @@ class ArticleController
     /**
      * Article publication page
      */
-    public function render_create(){
-        $category = (new CategoryManager)->getAllEntity();
+    public function render_create($catId = null){
+        if($catId){
+            $category = (new CategoryManager)->getSingleEntity($catId);
+        }
+        else{
+            $category = (new CategoryManager)->getAllEntity();
+        }
         $this->render("Article/create","Création d'une publication",$category);
     }
 

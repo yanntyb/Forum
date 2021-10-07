@@ -10,6 +10,7 @@ class Article
     private string $content;
     private Category $category;
     private User $user;
+    private string $date;
 
     /**
      * @return string
@@ -82,6 +83,26 @@ class Article
         $this->user = $user;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDate(): string
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $date
+     * @return $this
+     */
+    public function setDate(string $date): Article
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+
 
 
 
