@@ -27,9 +27,16 @@ trait GlobalManagerTrait
         return trim(stripslashes(htmlspecialchars(addslashes($data))));
     }
 
-    public function getSingleEntity(int $id){
-        $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name) . " WHERE id = :id");
-        $conn->bindValue(":id", $id);
+    /**
+     * Get single entity based on his colonne name and value
+     * Default is id = :id
+     * @param string $val
+     * @param string $col
+     * @return false|mixed
+     */
+    public function getSingleEntity(string $val, string $col = "id"){
+        $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name) . " WHERE " . $this->sanitize($col) . " = :id");
+        $conn->bindValue(":id", $this->sanitize($val));
         if($conn->execute()){
             $results = $conn->fetch();
             if($results){
@@ -43,9 +50,21 @@ trait GlobalManagerTrait
         return false;
     }
 
-    public function getAllEntity(): array
+    /**
+     * Return an array of objected base on database's data
+     * If $col and $colVal specified , only query a certain colonne of the database
+     * @param string $col
+     * @param string $colVal
+     * @return array
+     */
+    public function getAllEntity(string $col = null, string $colVal = null): array
     {
-        $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name));
+        if($col && $colVal){
+            $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name) . " WHERE " . $this->sanitize($col) . " = " . $this->sanitize($colVal));
+        }
+        else{
+            $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name) );
+        }
         $return = [];
         if($conn->execute()){
             $results = $conn->fetchAll();

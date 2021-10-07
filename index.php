@@ -107,7 +107,11 @@ if(isset($_GET["page"])){
                     }
                 }
             }
-
+        case "category":
+            if(isset($_GET["cat"])){
+                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
+                (new HomeController)->render_home($_GET["cat"]);
+            }
         default:
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_home();

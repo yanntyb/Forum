@@ -9,9 +9,18 @@ class HomeController
     /**
      * Render home page
      */
-    public function render_home(){
+    public function render_home(string $category = null){
         $manager = new ArticleManager();
-        $var = $manager->getAllEntity();
+        if($category){
+            $var = $manager->getAllEntity("category_fk",(new CategoryManager)->getSingleEntity($category,"name")->getId());
+            if($var === []){
+                $var = $manager->getAllEntity();
+            }
+        }
+        else{
+            echo "no";
+            $var = $manager->getAllEntity();
+        }
         $this->render('Home/guest',"Home",$var);
     }
 
