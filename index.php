@@ -79,7 +79,11 @@ if(isset($_GET["page"])){
         case "checkToken":
             if(isset($_GET["token"])){
                 require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
-                (new LoginController)->checkToken($_GET["token"]);
+                $mail = (new LoginController)->checkToken($_GET["token"]);
+                if($mail){
+                    $_SESSION["mail"] = $mail;
+                    (new HomeController)->renderSetPass();
+                }
             }
             else{
                 header("Location: index.php?page=login");

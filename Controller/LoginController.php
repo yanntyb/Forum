@@ -27,7 +27,6 @@ class LoginController
     /**
      * Check Token then create a new User then remove Token from database
      * @param $token
-     * @return false
      */
     public function checkToken($token){
         $tokenCheck = (new TokenManager)->getSingleEntity($token,"token");
@@ -40,5 +39,6 @@ class LoginController
         }
         return false;
     }
+
 
 }

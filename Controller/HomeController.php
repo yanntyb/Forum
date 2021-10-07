@@ -66,4 +66,5 @@ class HomeController
         $this->render("Home/category","Categories",$var);
     }
 
+
 }
