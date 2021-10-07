@@ -30,8 +30,14 @@
             </div><?php
         }
         foreach($var[0] as $article){?>
-            <div class="home-article-container">
-                <a class="home-article-content" style="background-color:<?= $article->getCategory()->getColor() ?>" href="?page=article&article=<?= $article->getId() ?>" >
+            <div id="article-<?= $article->getId() ?>" class="home-article-container">
+                <a class="home-article-content <?php
+                if(isset($_GET["new"])){
+                    if($article->getId() === intval($_GET["new"])){
+                        echo "new";
+                    }
+                }?>"
+                   style="background-color:<?= $article->getCategory()->getColor() ?>" href="?page=article&article=<?= $article->getId() ?>" >
                     <img class="home-article-img" src="<?= $article->getUser()->getImg() ?>" alt="profile-pic">
                     <h2 class="home-article-title"><?= $article->getTitle() ?></h2>
                     <aside class="home-article-date"><?= $article->getDate() ?></aside>

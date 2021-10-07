@@ -16,3 +16,19 @@ body{
 .hidden{
     display: none;
 }
+
+.new{
+    animation-name: new;
+    animation-duration: 0.5s;
+    animation-iteration-count: 4;
+}
+
+@keyframes new {
+    from {
+        box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.3);
+    }
+    to{
+        box-shadow: 0px 0px 29px 0px rgba(255,0,0,0.9);
+
+    }
+}

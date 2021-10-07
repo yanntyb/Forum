@@ -39,12 +39,13 @@ class ArticleController
      * @param $title
      * @param $content
      * @param $category
-     * @return bool
+     * @return false|string
      */
-    public function publish($title, $content, $category): bool
+    public function publish($title, $content, $category)
     {
-        if((new ArticleManager)->publish($title,$content,$category,unserialize($_SESSION["user"])->getId())){
-            return true;
+        $articleId = (new ArticleManager)->publish($title,$content,$category,unserialize($_SESSION["user"])->getId());
+        if($articleId){
+            return $articleId;
         }
         return false;
     }
@@ -53,7 +54,7 @@ class ArticleController
      * Delete Article from data base based
      * First check if connected user's id match with article's user's id
      * @param $articleId
-     * @param $user_id
+     * @param $user
      * @return bool
      */
     public function delete($articleId,$user): bool

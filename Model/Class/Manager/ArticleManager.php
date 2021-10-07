@@ -12,9 +12,8 @@ class ArticleManager
      * @param $content
      * @param $category
      * @param $userId
-     * @return bool
      */
-    public function publish($title, $content, $category, $userId): bool
+    public function publish($title, $content, $category, $userId)
     {
         $conn = $this->db->prepare("INSERT INTO article (title, content, category_fk, user_fk, date) VALUES (:title, :content, :category, :user, :date)");
         $conn->bindValue(":title", $this->sanitize($title));
@@ -23,7 +22,7 @@ class ArticleManager
         $conn->bindValue(":user",$this->sanitize($userId));
         $conn->bindValue(":date",date("d/m/Y H:m:s"));
         if($conn->execute()){
-            return true;
+            return $this->db->lastInsertId();
         }
         return false;
     }

@@ -14,7 +14,8 @@
 
                     <?php
                     if(!is_array($var)){?>
-                        <input name="category" disabled class="hidden" type="text" value="<?= $var->getId() ?>"><?php
+                        <input name="category" class="hidden" type="text" value="<?= $var->getId() ?>">
+                        <input name="page" class="hidden" type="text" value="<?= $var->getId() ?>"><?php
                     }
                     else{?>
                         <h2>Categorie</h2>

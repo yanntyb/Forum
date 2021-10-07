@@ -78,8 +78,27 @@ if(isset($_GET["page"])){
         case "publish":
             if(isset($_POST["title"], $_POST["content"], $_POST["category"], $_SESSION["user"])){
                 require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-                if((new ArticleController)->publish($_POST["title"],$_POST["content"],$_POST["category"])){
-                    header("Location: index.php?message=Poste bien publié");
+                $article = (new ArticleController)->publish($_POST["title"],$_POST["content"],$_POST["category"]);
+                if($article){
+                    /**
+                     * If article is created from categorie then user is redirected to corresponding category page
+                     * ?new=$article is used to display animation on the new created article
+                     */
+                    if(isset($_POST["page"])){
+                        if((new CategoryManager)->getSingleEntity($_POST["page"])){
+                            header("Location: index.php?page=category&cat=" . $_POST["category"] . "&new=" .$article . "#article-" . $article);
+                        }
+                        else{
+                            header("Location: index.php?new=" .$article . "#article-" . $article);
+                        }
+                    }
+                    else{
+                        header("Location: index.php?new=" .$article . "#article-" . $article);
+                    }
+
+                }
+                else{
+                    header("Location: index.php");
                 };
             }
             else{
