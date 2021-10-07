@@ -7,6 +7,12 @@ class LoginController
         return (new UserManager)->checkLog($name,$pass);
     }
 
+    /**
+     * Send registration token to specified mail
+     * @param $mail
+     * @return string[]
+     * @throws Exception
+     */
     public function sendToken($mail){
         $manager = new TokenManager();
         $result = $manager->createToken($mail);
@@ -15,6 +21,13 @@ class LoginController
         }
         else{
             return ["message" => $result];
+        }
+    }
+
+    public function checkToken($token){
+        $tokenCheck = (new TokenManager)->getSingleEntity("token",$token);
+        if($tokenCheck){
+            (new UserManager)->insertUser($tokenCheck->getMail(),"mail","pass");
         }
     }
 

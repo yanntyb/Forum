@@ -23,6 +23,9 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/CommentManager.ph
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Article.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/ArticleManager.php";
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Token.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/TokenManager.php";
+
 session_start();
 
 if(isset($_GET["page"])){
@@ -56,8 +59,18 @@ if(isset($_GET["page"])){
             }
             break;
         case "checkRegister":
-            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
+            if(isset($_POST["mail"])){
+                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
+                $message = (new LoginController)->sendToken($_POST["mail"]);
+                var_dump($message);
+            }
+
             break;
+        case "checkToken":
+            if(isset($_GET["token"])){
+                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
+                (new LoginController)->checkToken($_GET["token"]);
+            }
         case "create":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             $user = unserialize($_SESSION["user"]);

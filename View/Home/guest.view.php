@@ -26,12 +26,12 @@
         }
         if($var["same"][0] && $var[0] === []){?>
             <div class="home-article-content create nothover">
-                <h2 class="home-article-title center">Il n'y a aucun sujet dans cette categorie</h2>
+                <h2 class="home-article-title center">Il n'y a aucune publication dans cette categorie</h2>
             </div><?php
         }
         else if ($var[0] === []){?>
             <div class="home-article-content create nothover">
-                <h2 class="home-article-title center">Il n'y a aucun sujet</h2>
+                <h2 class="home-article-title center">Il n'y a aucune publication</h2>
             </div><?php
         }
         foreach($var[0] as $article){?>

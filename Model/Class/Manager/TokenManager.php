@@ -6,6 +6,12 @@ class TokenManager
 {
     use GlobalManagerTrait;
 
+    /**
+     * Send a token to a mail
+     * @param $mail
+     * @return bool|string
+     * @throws Exception
+     */
     public function createToken($mail){
         $conn = $this->db->prepare("SELECT id FROM token WHERE mail = :mail");
         $conn->bindValue(":mail",$this->sanitize($mail));
@@ -14,10 +20,14 @@ class TokenManager
                 return "Un mail vous a déjà été envoyé";
             }
             else{
-                $conn = $this->db->prepare("INSERT INTO token (mail, token, date) VALUES (:mail, :token, :date)");
+                $token = utf8_encode(bin2hex(random_bytes(50)));
+                echo $token;
+                $conn = $this->db->prepare("INSERT INTO token (mail, token) VALUES (:mail, :token)");
                 $conn->bindValue(":mail", $this->sanitize($mail));
-                $conn->bindValue(":token", random_bytes(10));
+                $conn->bindValue(":token", $token);
                 if($conn->execute()){
+
+                    mail($mail,"Création de compte pour le projet forum","<a href='localhost:'" . $_SERVER["SERVER_PORT"] . "/index.php?page=checkToken&token=" . $token ."'>Lien d'inscription</a>");
                     return true;
                 }
                 else{
