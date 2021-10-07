@@ -19,8 +19,8 @@ body{
 
 .new{
     animation-name: new;
-    animation-duration: 0.5s;
-    animation-iteration-count: 4;
+    animation-duration: 0.4s;
+    animation-iteration-count: 3;
 }
 
 @keyframes new {
@@ -31,4 +31,8 @@ body{
         box-shadow: 0px 0px 29px 0px rgba(255,0,0,0.9);
 
     }
+}
+
+.center{
+    text-align: center;
 }

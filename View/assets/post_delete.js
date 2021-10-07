@@ -44,12 +44,12 @@ function render(icon){
             })
         }
     }
-    let catId;
-    if(icon.dataset.id){
-        catId = icon.dataset.id;
+    let catId
+    if(icon.dataset.cat === undefined){
+        catId = false;
     }
     else{
-        catId = false
+        catId = icon.dataset.cat;
     }
     req.send(JSON.stringify({"id": icon.dataset.id, "cat": catId}));
 }

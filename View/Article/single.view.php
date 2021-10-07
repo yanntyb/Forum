@@ -18,7 +18,13 @@
         <h1 class="single-title">Commentaire(s)</h1>
         <?php
             foreach((new CommentManager())->getArticleComment($var->getId()) as $comment){?>
-                <div id="comment-id-<?= $comment->getId() ?>" class="comment-single">
+                <div id="comment-id-<?= $comment->getId() ?>"
+                     class="comment-single <?php
+                     if(isset($_GET["new"])){
+                         if($comment->getId() === intval($_GET["new"])){
+                             echo "new";
+                         }
+                     }?>">
                     <div class="comment-user">
                         <img class="comment-user-img" src="<?= $comment->getUser()->getImg() ?>" alt="<?= $comment->getUser()->getName() . '-profile-pic' ?>">
                         <h4 class="comment-user-name"><?= $comment->getUser()->getName() . "  (" . $comment->getDate() . ")" ?></h4>

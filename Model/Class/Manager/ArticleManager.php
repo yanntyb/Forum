@@ -16,7 +16,7 @@ class ArticleManager
     public function publish($title, $content, $category, $userId)
     {
         $conn = $this->db->prepare("INSERT INTO article (title, content, category_fk, user_fk, date) VALUES (:title, :content, :category, :user, :date)");
-        $conn->bindValue(":title", $this->sanitize($title));
+        $conn->bindValue(":title", $this->sanitize(substr($title,0,110)));
         $conn->bindValue(":content", $this->sanitize($content));
         $conn->bindValue(":category", $this->sanitize($category));
         $conn->bindValue(":user",$this->sanitize($userId));

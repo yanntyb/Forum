@@ -57,6 +57,7 @@ if(isset($_GET["page"])){
             break;
         case "checkRegister":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/LoginController.php";
+            break;
         case "create":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             $user = unserialize($_SESSION["user"]);
@@ -107,13 +108,12 @@ if(isset($_GET["page"])){
             break;
         case "delete":
             $data = json_decode(file_get_contents("php://input"));
-            var_dump($data);
             if($data){
                 $user = unserialize($_SESSION["user"]);
                 if(!is_array($user)){
                     require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
                     if((new ArticleController)->delete($data->id,$user)){
-                        echo (new ArticleController)->all_to_json();
+                        echo (new ArticleController)->all_to_json($data->cat);
                     };
                 }
                 else{
@@ -131,10 +131,11 @@ if(isset($_GET["page"])){
                 if(!is_array($user)){
                     $comment_id = (new ArticleController)->addComment($_POST["content"],$_POST["article-id"],$user);
                     if($comment_id){
-                        header("Location: index.php?page=article&article=" . $_POST["article-id"] . "#comment-id-" . $comment_id);
+                        header("Location: index.php?page=article&article=" . $_POST["article-id"] . "&new=" . $comment_id . "#comment-id-" . $comment_id);
                     }
                 }
             }
+            break;
         case "category":
             if(isset($_GET["cat"])){
                 require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
@@ -144,6 +145,7 @@ if(isset($_GET["page"])){
                 require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
                 (new HomeController)->render_category();
             }
+            break;
         default:
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_home();

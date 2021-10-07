@@ -78,14 +78,20 @@ class ArticleController
      * Encode all articles in dataBase in json to be displayed by JS when one is removed with AJAX
      * @return false|string
      */
-    public function all_to_json(){
+    public function all_to_json($catId = null){
         if(isset($_SESSION["user"]) && !is_array(unserialize($_SESSION["user"]))){
             $userId = unserialize($_SESSION["user"])->getId();
         }
         else{
             $userId = false;
         }
-        $articles = (new ArticleManager)->getAllEntity();
+        if($catId){
+            $articles = (new ArticleManager)->getAllEntity("category_fk",$catId);
+        }
+        else{
+            $articles = (new ArticleManager)->getAllEntity();
+        }
+
         $return = [];
         foreach($articles as $article){
             $return[] = [

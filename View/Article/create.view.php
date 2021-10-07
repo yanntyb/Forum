@@ -4,7 +4,7 @@
         <form action="?page=publish" method="post">
             <div>
                 <h2>Titre :</h2>
-                <input name="title" type="text">
+                <input name="title" type="text" placeholder="Un titre trop long sera coupé">
             </div>
             <div>
                 <h2>Contenu :</h2>
