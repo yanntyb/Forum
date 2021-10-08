@@ -7,7 +7,7 @@
                 <input required name="title" type="text" placeholder="Un titre trop long sera coupé">
             </div>
             <div>
-                <h2>Descriptif</h2>
+                <h2>Descriptif </h2>
                 <textarea required name="content"></textarea>
             </div>
             <div id="submit">
