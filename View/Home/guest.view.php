@@ -42,19 +42,34 @@
                         echo "new";
                     }
                 }?>"
-                   style="background-color:<?= $article->getCategory()->getColor() ?>" href="?page=article&article=<?= $article->getId() ?>" >
-                    <img class="home-article-img" src="<?= $article->getUser()->getImg() ?>" alt="profile-pic">
+                   style="background-color:<?= $article->getCategory()->getColor() ?>" href="?page=article&article=<?php echo $article->getId();?>" >
+                    <figure class="home-article-figure">
+                        <img class="home-article-img" src="<?= $article->getUser()->getImg() ?>" alt="profile-pic">
+                        <figcaption><?= substr($article->getUser()->getName(),0,40) ?></figcaption>
+                    </figure>
+
                     <h2 class="home-article-title"><?= $article->getTitle() ?></h2>
-                    <aside class="home-article-date"><?php echo $article->getDate();
-                        if($user){
-                            if($user->getId() === $article->getUser()->getId() || $user->getRole()->getName() === "admin" || "mode"){?>
-                                <div class="delete-container">
-                                    <i class="far fa-trash-alt delete" data-id="<?= $article->getId() ?>"></i>
-                                </div>
-                                <?php
-                            }
-                        }?></aside>
-                </a>
+                    <aside class="home-article-date"><?= $article->getDate();?>
+                    </aside>
+            </a><?php
+            if($user){
+                if($user->getId() === $article->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){?>
+                    <a href=
+                            "<?php
+                            //If user is in a category and not in home then he is redirect to the category page when he click on delete icon
+                                if(isset($_GET["cat"])){
+                                    echo "index.php?page=category&cat=" . $_GET["cat"];
+                                }
+                                else{
+                                    echo "index.php";
+                                }
+                            ?>"
+                            class="far fa-trash-alt delete" data-id="<?= $article->getId() ?>"></a>
+                    <?php
+                }
+            }
+            ?>
+
             </div><?php
         }
         ?>
@@ -64,7 +79,7 @@
 <?php
 if($user){?>
     <script src="https://kit.fontawesome.com/78e483bd6f.js" crossorigin="anonymous"></script>
-    <script src="View/assets/post_delete.js"></script>
+    <script src="/View/assets/post_delete.js"></script>
 <?php
 }
 ?>

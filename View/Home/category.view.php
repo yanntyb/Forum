@@ -14,11 +14,11 @@ else{
         foreach($var as $category){?>
             <div class="home-article-container">
             <a class="home-article-content" style="background-color:<?= $category->getColor() ?>" href="?page=category&cat=<?= $category->getId() ?>" >
-                <h2 class="home-article-title"><?= $category->getName() ?></h2><?php
+                <h2 class="home-article-title"><?= ucfirst($category->getName()) ?></h2><?php
                 if($user){
                     if($user->getRole()->getName() === "admin"){?>
                         <div class="delete-container">
-                            <i class="far fa-trash-alt delete" data-id="<?= $category->getId() ?>"></i>
+                            <i data-type="category" class="far fa-trash-alt delete" data-id="<?= $category->getId() ?>"></i>
                         </div>
                         <?php
                     }

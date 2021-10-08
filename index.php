@@ -35,7 +35,7 @@ if(isset($_GET["page"])){
             //If render_by_id return false mean that articleManager couldnt resolved the article based on his id ($_GET["article"]
             //If so user is redirect to home page
             if((new ArticleController)->render_by_id($_GET["article"]) === false){
-                header("Location: index.php?page=home");
+                header("Location: index.php");
                 break;
             }
             break;
@@ -108,7 +108,7 @@ if(isset($_GET["page"])){
             }
             break;
         case "publish":
-            if(isset($_POST["title"], $_POST["content"], $_POST["category"], $_SESSION["user"])){
+            if(isset($_POST["title"], $_POST["content"], $_POST["category"], $_SESSION["user"]) && $_POST["content"] !== "" && $_POST["title"] !== ""){
                 require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
                 $article = (new ArticleController)->publish($_POST["title"],$_POST["content"],$_POST["category"]);
                 if($article){
@@ -116,8 +116,8 @@ if(isset($_GET["page"])){
                      * If article is created from categorie then user is redirected to corresponding category page
                      * ?new=$article is used to display animation on the new created article
                      */
-                    if(isset($_POST["page"])){
-                        if((new CategoryManager)->getSingleEntity($_POST["page"])){
+                    if(isset($_POST["category"])){
+                        if((new CategoryManager)->getSingleEntity($_POST["category"])){
                             header("Location: index.php?page=category&cat=" . $_POST["category"] . "&new=" .$article . "#article-" . $article);
                         }
                         else{
@@ -144,11 +144,13 @@ if(isset($_GET["page"])){
                 if(!is_array($user)){
                     require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
                     if((new ArticleController)->delete($data->id,$user)){
-                        echo (new ArticleController)->all_to_json($data->cat);
-                    };
-                }
-                else{
-                    header("Location: index.php");
+                        if($data->cat){
+                            $cat = (new CategoryManager)->getSingleEntity(intval($data->cat));
+                            if($cat){
+                                header("Location: index?page=category&cat=" . $cat->getId());
+                            }
+                        }
+                    }
                 }
             }
             else{
@@ -168,19 +170,14 @@ if(isset($_GET["page"])){
             }
             break;
         case "category":
+            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             if(isset($_GET["cat"])){
-                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
                 (new HomeController)->render_home($_GET["cat"]);
             }
             else{
-                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
                 (new HomeController)->render_category();
             }
             break;
-        default:
-            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
-            (new HomeController)->render_home();
-            die();
     }
 }
 else{

@@ -16,8 +16,10 @@ class HomeController
             /*
              * If no category match with specified id in $_GET then user is redirected to home page
              */
-            if((new CategoryManager)->getSingleEntity($category)){
+            $categoryName = (new CategoryManager)->getSingleEntity($category)->getName();
+            if($categoryName){
                 $var = [$manager->getAllEntity("category_fk",$category), "same" => [true, $category]];
+                $this->render('Home/guest',ucfirst($categoryName),$var);
             }
             else{
                 header("Location: index.php");
@@ -25,8 +27,9 @@ class HomeController
         }
         else{
             $var = [$manager->getAllEntity(), "same" => [false]];
+            $this->render('Home/guest',"Home",$var);
         }
-        $this->render('Home/guest',"Home",$var);
+
     }
 
     /**

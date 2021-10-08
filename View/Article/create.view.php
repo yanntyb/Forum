@@ -4,11 +4,11 @@
         <form action="?page=publish" method="post">
             <div>
                 <h2>Titre</h2>
-                <input name="title" type="text" placeholder="Un titre trop long sera coupé">
+                <input required name="title" type="text" placeholder="Un titre trop long sera coupé">
             </div>
             <div>
                 <h2>Contenu</h2>
-                <textarea name="content"></textarea>
+                <textarea required name="content"></textarea>
             </div>
             <div>
 
