@@ -13,12 +13,12 @@
         <?php
         if($user){
             if($var["same"][0]){?>
-                <a href="?page=create&cat=<?= $var["same"][1] ?>" class="home-article-content create">
+                <a href="?page=create&type=article&cat=<?= $var["same"][1] ?>" class="home-article-content create">
                     <h2 class="home-article-title center">Créer une publication</h2>
                 </a><?php
             }
             else{?>
-                <a href="?page=create" class="home-article-content create">
+                <a href="?page=create&type=article" class="home-article-content create">
                     <h2 class="home-article-title center">Créer une publication</h2>
                 </a><?php
             }?>
@@ -42,7 +42,7 @@
                         echo "new";
                     }
                 }?>"
-                   style="background-color:<?= $article->getCategory()->getColor() ?>" href="?page=article&article=<?php echo $article->getId();?>" >
+                   style="background-color:<?= $article->getCategory()->getColor() ?>" href="/?page=article&article=<?php echo $article->getId();?>" >
                     <figure class="home-article-figure">
                         <img class="home-article-img" src="<?= $article->getUser()->getImg() ?>" alt="profile-pic">
                         <figcaption><?= substr($article->getUser()->getName(),0,40) ?></figcaption>
@@ -58,10 +58,10 @@
                             "<?php
                             //If user is in a category and not in home then he is redirect to the category page when he click on delete icon
                                 if(isset($_GET["cat"])){
-                                    echo "index.php?page=category&cat=" . $_GET["cat"];
+                                    echo "/index.php?page=category&cat=" . $_GET["cat"];
                                 }
                                 else{
-                                    echo "index.php";
+                                    echo "/index.php";
                                 }
                             ?>"
                             class="far fa-trash-alt delete" data-id="<?= $article->getId() ?>"></a>
@@ -79,7 +79,7 @@
 <?php
 if($user){?>
     <script src="https://kit.fontawesome.com/78e483bd6f.js" crossorigin="anonymous"></script>
-    <script src="/View/assets/post_delete.js"></script>
+    <script src="/View/assets/delete.js"></script>
 <?php
 }
 ?>

@@ -90,67 +90,99 @@ if(isset($_GET["page"])){
             }
             break;
         case "create":
-            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             $user = unserialize($_SESSION["user"]);
             if($user){
-                if(isset($_GET["cat"])){
-                    if((new CategoryManager)->getSingleEntity($_GET["cat"])){
-                        (new ArticleController)->render_create($_GET["cat"]);
-                    }
-                    else{
+                if(isset($_GET["type"])){
+                    if($_GET["type"] === "article"){
+                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+                        if(isset($_GET["cat"])){
+                            if((new CategoryManager)->getSingleEntity($_GET["cat"])){
+                                (new ArticleController)->render_create($_GET["cat"]);
+                            }
+                            else{
+                                (new ArticleController)->render_create();
+                            }
+                        }
                         (new ArticleController)->render_create();
                     }
+                    else if($_GET["type"] === "category"){
+                        if($user->getRole()->getName() === "admin"){
+                            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
+                            (new CategoryController)->render_create();
+                        }
+                        else{
+                            header("Location: index.php");
+                        }
+                    }
                 }
-                (new ArticleController)->render_create();
+                else{
+                    header("Location: index.php");
+                }
             }
             else{
                 header("Location: index.php");
             }
             break;
         case "publish":
-            if(isset($_POST["title"], $_POST["content"], $_POST["category"], $_SESSION["user"]) && $_POST["content"] !== "" && $_POST["title"] !== ""){
-                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-                $article = (new ArticleController)->publish($_POST["title"],$_POST["content"],$_POST["category"]);
-                if($article){
-                    /**
-                     * If article is created from categorie then user is redirected to corresponding category page
-                     * ?new=$article is used to display animation on the new created article
-                     */
-                    if(isset($_POST["category"])){
-                        if((new CategoryManager)->getSingleEntity($_POST["category"])){
-                            header("Location: index.php?page=category&cat=" . $_POST["category"] . "&new=" .$article . "#article-" . $article);
+            if(isset($_POST["title"], $_POST["content"]) && $_POST["content"] !== "" && $_POST["title"] !== "") {
+                if ($_GET["type"] === "article" && isset($_POST["category"], $_SESSION["user"])) {
+                    require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+                    $article = (new ArticleController)->publish($_POST["title"], $_POST["content"], $_POST["category"]);
+                    if ($article) {
+                        /**
+                         * If article is created from categorie then user is redirected to corresponding category page
+                         * ?new=$article is used to display animation on the new created article
+                         */
+                        if (isset($_POST["category"])) {
+                            if ((new CategoryManager)->getSingleEntity($_POST["category"])) {
+                                header("Location: index.php?page=category&cat=" . $_POST["category"] . "&new=" . $article . "#article-" . $article);
+                            } else {
+                                header("Location: index.php?new=" . $article . "#article-" . $article);
+                            }
+                        } else {
+                            header("Location: index.php?new=" . $article . "#article-" . $article);
                         }
-                        else{
-                            header("Location: index.php?new=" .$article . "#article-" . $article);
-                        }
+
+                    } else {
+                        header("Location: index.php");
+                    }
+                }
+                else if($_GET["type"] === "category"){
+                    $user = unserialize($_SESSION["user"]);
+                    if($user->getRole()->getName() === "admin"){
+                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
+                        $category = (new CategoryController)->publish($_POST["title"], $_POST["content"]);
+                        header("Location: index.php?page=category");
                     }
                     else{
-                        header("Location: index.php?new=" .$article . "#article-" . $article);
+                        header("Location: index.php");
                     }
-
                 }
                 else{
                     header("Location: index.php");
-                };
+                }
+                break;
             }
-            else{
-                header("Location: index.php");
-            }
+            header("Location: index.php");
             break;
         case "delete":
             $data = json_decode(file_get_contents("php://input"));
             if($data){
                 $user = unserialize($_SESSION["user"]);
                 if(!is_array($user)){
-                    require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-                    if((new ArticleController)->delete($data->id,$user)){
-                        if($data->cat){
-                            $cat = (new CategoryManager)->getSingleEntity(intval($data->cat));
-                            if($cat){
-                                header("Location: index?page=category&cat=" . $cat->getId());
+                    if($data->type === "article"){
+                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+                        if((new ArticleController)->delete($data->id,$user)){
+                            if($data->cat){
+                                $cat = (new CategoryManager)->getSingleEntity(intval($data->cat));
                             }
                         }
                     }
+                    else if($data->type === "category"){
+                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
+                        (new CategoryController)->delete($data->id,$user);
+                    }
+
                 }
             }
             else{

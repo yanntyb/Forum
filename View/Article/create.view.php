@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="View/assets/create.css">
+<link rel="stylesheet" href="/View/assets/create.css">
 <div id="main">
     <div>
-        <form action="?page=publish" method="post">
+        <form action="/?page=publish&type=article" method="post">
             <div>
                 <h2>Titre</h2>
                 <input required name="title" type="text" placeholder="Un titre trop long sera coupé">

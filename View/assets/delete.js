@@ -11,6 +11,7 @@ for(let icon of delete_icone){
  * @param icon
  */
 function render(icon){
+    console.log(icon);
     let req = new XMLHttpRequest();
     req.open("POST","index.php?page=delete");
     let catId

@@ -7,6 +7,7 @@ class Category
     use GlobalEntityTrait;
 
     private string $color;
+    private string $description;
 
     /**
      * @return string
@@ -25,6 +26,25 @@ class Category
         $this->color = $color;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return Category
+     */
+    public function setDescription(string $description): Category
+    {
+        $this->description = $description;
+        return $this;
+    }
+
 
 
 }

@@ -8,10 +8,10 @@ class ArticleController
 
     /**
      * Render article based on his id
-     * @param $id
+     * @param int $id
      * @return bool
      */
-    public function render_by_id($id): bool{
+    public function render_by_id(int $id): bool{
         $manager = new ArticleManager();
         $result = $manager->getSingleEntity($id);
         if($result){
@@ -36,12 +36,12 @@ class ArticleController
 
     /**
      * Insert a new article in BDD
-     * @param $title
-     * @param $content
-     * @param $category
+     * @param string $title
+     * @param string $content
+     * @param int $category
      * @return false|string
      */
-    public function publish($title, $content, $category)
+    public function publish(string $title, string $content, int $category)
     {
         $articleId = (new ArticleManager)->publish($title,$content,$category,unserialize($_SESSION["user"])->getId());
         if($articleId){
@@ -53,11 +53,11 @@ class ArticleController
     /**
      * Delete Article from data base based
      * First check if connected user's id match with article's user's id
-     * @param $articleId
-     * @param $user
+     * @param int $articleId
+     * @param User $user
      * @return bool
      */
-    public function delete($articleId,$user): bool
+    public function delete(int $articleId, User $user): bool
     {
         $article = (new ArticleManager)->getSingleEntity($articleId);
         if($article){
@@ -115,12 +115,12 @@ class ArticleController
 
     /**
      * Add comment to article based on article's id and user's id
-     * @param $content
-     * @param $articleId
-     * @param $user
-     * @return bool
+     * @param string $content
+     * @param int $articleId
+     * @param User $user
+     * @return false|string
      */
-    public function addComment($content, $articleId,$user)
+    public function addComment(string $content, int $articleId, User $user)
     {
         if((new ArticleManager)->getSingleEntity($articleId)){
             $comment = (new CommentManager)->addComment($content,$articleId,$user->getId());
