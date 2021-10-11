@@ -55,16 +55,16 @@
             if($user){
                 if($user->getId() === $article->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){?>
                     <a href=
-                            "<?php
-                            //If user is in a category and not in home then he is redirect to the category page when he click on delete icon
-                                if(isset($_GET["cat"])){
-                                    echo "/index.php?page=category&cat=" . $_GET["cat"];
-                                }
-                                else{
-                                    echo "/index.php";
-                                }
-                            ?>"
-                            class="far fa-trash-alt delete" data-id="<?= $article->getId() ?>"></a>
+                       "<?php
+                       //If user is in a category and not in home then he is redirect to the category page when he click on delete icon
+                       if(isset($_GET["cat"])){
+                           echo "/index.php?page=category&cat=" . $_GET["cat"];
+                       }
+                       else{
+                           echo "/index.php";
+                       }
+                       ?>"
+                       class="far fa-trash-alt delete" data-type="article" data-id="<?= $article->getId() ?>"></a>
                     <?php
                 }
             }

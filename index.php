@@ -172,7 +172,7 @@ if(isset($_GET["page"])){
                 if(!is_array($user)){
                     if($data->type === "article"){
                         require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-                        if((new ArticleController)->delete($data->id,$user)){
+                        if((new ArticleController)->delete($data->id, $user)){
                             if($data->cat){
                                 $cat = (new CategoryManager)->getSingleEntity(intval($data->cat));
                             }
@@ -180,7 +180,11 @@ if(isset($_GET["page"])){
                     }
                     else if($data->type === "category"){
                         require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
-                        (new CategoryController)->delete($data->id,$user);
+                        (new CategoryController)->delete($data->id, $user);
+                    }
+                    else if($data->type === "comment"){
+                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CommentController.php";
+                        (new CommentController)->delete($data->id, $user);
                     }
 
                 }

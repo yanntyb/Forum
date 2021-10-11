@@ -1,4 +1,13 @@
-<link rel="stylesheet" href="View/assets/single.css">
+<?php
+if(isset($_SESSION["user"])){
+    $user = unserialize($_SESSION["user"]);
+}
+else{
+    $user = false;
+}
+?>
+
+<link rel="stylesheet" href="/View/assets/single.css">
 <div id="single-main">
     <div id="single-content" data-userid="<?= $var->getUser()->getId() ?>">
         <h1 class="single-title">
@@ -32,17 +41,20 @@
                     <div class="comment-content">
                         <?= $comment->getContent() ?>
                     </div>
-                </div>
-                <?php
+                </div><?php
+                if($user){
+                    if($user->getId() === $comment->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){?>
+                        <a href="/index.php?page=article&article=<?=$comment->getArticle()->getId() ?>"  class="far fa-trash-alt delete" data-type="comment" data-id="<?= $comment->getId() ?>"></a>
+                        <?php
+                    }
+                }
             }
-
-            $sessionUser = unserialize($_SESSION["user"]) ?? false;
-            if($sessionUser){
+            if($user){
                 ?>
-                <form action="index.php?page=addcomment" method="post" class="comment-single" id="form-comment">
+                <form action="/index.php?page=addcomment" method="post" class="comment-single" id="form-comment">
                     <div class="comment-user">
-                        <img src="<?= $sessionUser->getImg() ?>" alt="<?= $sessionUser->getName() . '-profile-pic' ?>" class="comment-user-img">
-                        <h4 class="comment-user-name"><?= $sessionUser->getName() ?></h4>
+                        <img src="<?= $user->getImg() ?>" alt="<?= $user->getName() . '-profile-pic' ?>" class="comment-user-img">
+                        <h4 class="comment-user-name"><?= $user->getName() ?></h4>
                     </div>
                     <div class="comment-content">
                         <textarea name="content" id="" cols="30" rows="10"></textarea>
@@ -56,3 +68,10 @@
         ?>
     </div>
 </div>
+<?php
+if($user){?>
+    <script src="https://kit.fontawesome.com/78e483bd6f.js" crossorigin="anonymous"></script>
+    <script src="/View/assets/delete.js"></script>
+    <?php
+}
+?>

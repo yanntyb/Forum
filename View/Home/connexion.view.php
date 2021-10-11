@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="View/assets/connect.css">
+<link rel="stylesheet" href="/View/assets/connect.css">
 
 <div id="main">
     <div>

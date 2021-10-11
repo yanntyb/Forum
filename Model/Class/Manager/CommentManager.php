@@ -43,4 +43,10 @@ class CommentManager
         return false;
 
     }
+
+    public function delete($id){
+        $conn = $this->db->prepare("DELETE FROM comment WHERE id = :id");
+        $conn->bindValue(":id", $this->sanitize($id));
+        $conn->execute();
+    }
 }
