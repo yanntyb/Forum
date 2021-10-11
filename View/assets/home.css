@@ -80,12 +80,17 @@
     color:red;
 }
 
-.delete{
+.far{
     z-index: 1;
     margin: 0.5%;
 }
 
 .edit:hover{
     color: greenyellow;
+    cursor: pointer;
+}
+
+.archive:hover{
+    color: blue;
     cursor: pointer;
 }

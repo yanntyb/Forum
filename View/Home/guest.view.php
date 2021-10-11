@@ -48,7 +48,7 @@
                         <figcaption><?= substr($article->getUser()->getName(),0,40) ?></figcaption>
                     </figure>
 
-                    <h2 class="home-article-title"><?= $article->getTitle() ?></h2>
+                    <h2 class="home-article-title"><?= ucfirst($article->getTitle()) ?></h2>
                     <aside class="home-article-date"><?= $article->getDate();?>
                     </aside>
             </a><?php

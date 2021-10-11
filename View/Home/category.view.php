@@ -26,6 +26,7 @@ else{
                         <div class="delete-container">
                             <a href="/index.php?page=category" data-type="category" class="far fa-trash-alt delete" data-id="<?= $category->getId() ?>"></a>
                             <a href="/index.php?page=category&methode=edit&id=<?= $category->getId() ?>" class="far fa-edit edit"></a>
+                            <a href="/index.php?page=category&methode=archive&id=<?= $category->getId() ?>" class="far fa-file-archive archive"></a>
                         </div>
                         <?php
                     }

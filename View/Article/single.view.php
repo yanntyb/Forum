@@ -11,7 +11,7 @@ else{
 <div id="single-main">
     <div id="single-content" data-userid="<?= $var->getUser()->getId() ?>">
         <h1 class="single-title">
-            <?= $var->getTitle() ?>
+            <?= ucfirst($var->getTitle()) ?>
         </h1>
         <div id="single-article">
             <div id="single-article-user">
@@ -44,15 +44,15 @@ else{
                 </div><?php
                 if($user){
                     if($user->getId() === $comment->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){?>
-                        <a href="/index.php?page=article&article=<?=$comment->getArticle()->getId() ?>"  class="far fa-trash-alt delete" data-type="comment" data-id="<?= $comment->getId() ?>"></a>
-                        <a href="/index.php?page=edit&type=comment&id=<?= $comment->getId() ?>" class="far fa-edit edit"></a>
+                        <a href="/index.php?page=article&methode=render&article=<?=$comment->getArticle()->getId() ?>"  class="far fa-trash-alt delete" data-type="comment" data-id="<?= $comment->getId() ?>"></a>
+                        <a href="/index.php?page=comment&methode=edit&id=<?= $comment->getId() ?>" class="far fa-edit edit"></a>
                         <?php
                     }
                 }
             }
             if($user){
                 ?>
-                <form action="/index.php?page=addcomment" method="post" class="comment-single" id="form-comment">
+                <form action="/index.php?page=comment&methode=new" method="post" class="comment-single" id="form-comment">
                     <div class="comment-user">
                         <img src="<?= $user->getImg() ?>" alt="<?= $user->getName() . '-profile-pic' ?>" class="comment-user-img">
                         <h4 class="comment-user-name"><?= $user->getName() ?></h4>

@@ -49,4 +49,12 @@ class CommentManager
         $conn->bindValue(":id", $this->sanitize($id));
         $conn->execute();
     }
+
+    public function edit($content, $id, $user){
+        $conn = $this->db->prepare("UPDATE comment SET content = :content, date = :date WHERE id = :id");
+        $conn->bindValue(":content", $this->sanitize($content));
+        $conn->bindValue(":date", "modifié le " .date("d/m/Y H:m:s") . " par " . $user->getName());
+        $conn->bindValue(":id", $id);
+        $conn->execute();
+    }
 }

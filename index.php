@@ -207,40 +207,60 @@ if(isset($_GET["page"])){
                 header("Location: index.php");
             }
             break;
-        case "addcomment":
+        case "comment":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-            if(isset($_POST["content"]) && $_POST["content"] !== ""){
-                $user = unserialize($_SESSION["user"]);
-                if(!is_array($user)){
-                    $comment_id = (new ArticleController)->addComment($_POST["content"],$_POST["article-id"],$user);
-                    if($comment_id){
-                        header("Location: index.php?page=article&article=" . $_POST["article-id"] . "&new=" . $comment_id . "#comment-id-" . $comment_id);
+            switch($_GET["methode"]){
+                case "new":
+                    if(isset($_POST["content"]) && $_POST["content"] !== ""){
+                        $user = unserialize($_SESSION["user"]);
+                        if(!is_array($user)){
+                            $comment_id = (new ArticleController)->addComment($_POST["content"],$_POST["article-id"],$user);
+                            if($comment_id){
+                                header("Location: index.php?page=article&methode=render&article=" . $_POST["article-id"] . "&new=" . $comment_id . "#comment-id-" . $comment_id);
+                            }
+                        }
                     }
-                }
+                    break;
+                case "edit":
+                    $user = unserialize($_SESSION["user"]);
+                    if(!is_array($user)){
+                        if(isset($_GET["id"])){
+                            $comment = (new CommentManager)->getSingleEntity($_GET["id"]);
+                            if($comment){
+                                if($user->getId() === $comment->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){
+                                    require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CommentController.php";
+                                    (new CommentController)->edit($comment);
+                                    break;
+                                }
+                            }
+                        }
+                    }
             }
+
             break;
         case "category":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
-            if(isset($_GET["methode"])){
-                if($_GET["methode"] === "edit"){
-                    if(isset($_GET["id"])){
+            if(isset($_GET["id"])) {
+                switch($_GET["methode"]) {
+                    case "edit" :
                         require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
-                        if(isset($_SESSION["user"])){
+                        if (isset($_SESSION["user"])) {
                             $user = unserialize($_SESSION["user"]);
-                            if(!is_array($user)){
+                            if (!is_array($user)) {
                                 (new CategoryController)->edit($_GET["id"], $user);
-                            }
-                            else{
+                            } else {
                                 header("Location: index.php");
                             }
-                        }else{
+                        } else {
                             header("Location: index.php");
                         }
-                    }else{
+                    case "archive":
+
+                        break;
+                    default:
                         header("Location: index.php");
-                    }
-                } else{
-                    header("Location: index.php");
+                        break;
+
                 }
             }
             else{
@@ -277,9 +297,20 @@ if(isset($_GET["page"])){
                     break;
                 case "comment":
                     $user = unserialize($_SESSION["user"]);
-                    if(!is_array($user)) {
-
+                    $comment = (new CommentManager)->getSingleEntity($_POST["id"]);
+                    if($comment){
+                        if(!is_array($user)) {
+                            if(isset($_POST["content"], $_POST["id"])){
+                                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CommentController.php";
+                                (new CommentController)->editContent($comment, $user, $_POST["content"], $_POST["id"]);
+                            }
+                        }
+                        header("Location: index.php?page=article&methode=render&article=" . $comment->getArticle()->getId() . "&new=" . $comment->getId() . "#comment-id-" . $comment->getId());
                     }
+                    else{
+                        header("Location: index.php");
+                    }
+
             }
     }
 }

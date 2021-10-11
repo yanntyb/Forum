@@ -8,6 +8,7 @@ class Category
 
     private string $color;
     private string $description;
+    private int $archive;
 
     /**
      * @return string
@@ -44,6 +45,25 @@ class Category
         $this->description = $description;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getArchive(): int
+    {
+        return $this->archive;
+    }
+
+    /**
+     * @param int $archive
+     * @return Category
+     */
+    public function setArchive(int $archive): Category
+    {
+        $this->archive = $archive;
+        return $this;
+    }
+
 
 
 
