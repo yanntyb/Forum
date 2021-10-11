@@ -34,11 +34,25 @@ if(isset($_GET["page"])){
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
             //If render_by_id return false mean that articleManager couldnt resolved the article based on his id ($_GET["article"]
             //If so user is redirect to home page
-            if((new ArticleController)->render_by_id($_GET["article"]) === false){
-                header("Location: index.php");
-                break;
+            switch($_GET["methode"]){
+                case "edit":
+                    if(isset($_GET["id"])){
+                        $user = unserialize($_SESSION["user"]);
+                        if(!is_array($user)){
+                            if((new ArticleController)->edit($_GET["id"], $user) === false){
+                                header("Location: index.php");
+                            }
+                        }
+
+                    }
+                    break;
+                case "render":
+                    if((new ArticleController)->render_by_id($_GET["article"]) === false){
+                        header("Location: index.php");
+                        break;
+                    }
+                    break;
             }
-            break;
         case "login":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_connect();
@@ -207,13 +221,66 @@ if(isset($_GET["page"])){
             break;
         case "category":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
-            if(isset($_GET["cat"])){
-                (new HomeController)->render_home($_GET["cat"]);
+            if(isset($_GET["methode"])){
+                if($_GET["methode"] === "edit"){
+                    if(isset($_GET["id"])){
+                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
+                        if(isset($_SESSION["user"])){
+                            $user = unserialize($_SESSION["user"]);
+                            if(!is_array($user)){
+                                (new CategoryController)->edit($_GET["id"], $user);
+                            }
+                            else{
+                                header("Location: index.php");
+                            }
+                        }else{
+                            header("Location: index.php");
+                        }
+                    }else{
+                        header("Location: index.php");
+                    }
+                } else{
+                    header("Location: index.php");
+                }
             }
             else{
-                (new HomeController)->render_category();
+                if(isset($_GET["cat"])){
+                    (new HomeController)->render_home($_GET["cat"]);
+                }
+                else{
+                    (new HomeController)->render_category();
+                }
             }
+
             break;
+        case "edit":
+            switch ($_GET["type"]){
+                case "category":
+                    if(isset($_POST["title"], $_POST["id"], $_POST["description"])){
+                        $user = unserialize($_SESSION["user"]);
+                        if(!is_array($user)){
+                            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
+                            (new CategoryController)->editTitle($_POST["title"] , $_POST["id"], $user, $_POST["description"]);
+                        }
+                    }
+                    header("Location: index.php?page=category");
+                    break;
+                case "article":
+                    $user = unserialize($_SESSION["user"]);
+                    if(!is_array($user)) {
+                        if (isset($_POST["title"], $_POST["content"], $_POST["id"], $_POST["category"])) {
+                            require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
+                            (new ArticleController)->editContent($_POST["title"], $_POST["content"], $_POST["id"], $user, $_POST["category"]);
+                        }
+                    }
+                    header("Location: index.php?page=article&methode=render&article=" . $_POST["id"]);
+                    break;
+                case "comment":
+                    $user = unserialize($_SESSION["user"]);
+                    if(!is_array($user)) {
+
+                    }
+            }
     }
 }
 else{

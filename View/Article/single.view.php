@@ -45,6 +45,7 @@ else{
                 if($user){
                     if($user->getId() === $comment->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){?>
                         <a href="/index.php?page=article&article=<?=$comment->getArticle()->getId() ?>"  class="far fa-trash-alt delete" data-type="comment" data-id="<?= $comment->getId() ?>"></a>
+                        <a href="/index.php?page=edit&type=comment&id=<?= $comment->getId() ?>" class="far fa-edit edit"></a>
                         <?php
                     }
                 }

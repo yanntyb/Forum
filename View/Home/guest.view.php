@@ -42,7 +42,7 @@
                         echo "new";
                     }
                 }?>"
-                   style="background-color:<?= $article->getCategory()->getColor() ?>" href="/?page=article&article=<?php echo $article->getId();?>" >
+                   style="background-color:<?= $article->getCategory()->getColor() ?>" href="/?page=article&methode=render&article=<?php echo $article->getId();?>" >
                     <figure class="home-article-figure">
                         <img class="home-article-img" src="<?= $article->getUser()->getImg() ?>" alt="profile-pic">
                         <figcaption><?= substr($article->getUser()->getName(),0,40) ?></figcaption>
@@ -65,6 +65,8 @@
                        }
                        ?>"
                        class="far fa-trash-alt delete" data-type="article" data-id="<?= $article->getId() ?>"></a>
+                    <a href="/index.php?page=article&methode=edit&id=<?= $article->getId() ?>" class="far fa-edit edit"></a>
+
                     <?php
                 }
             }

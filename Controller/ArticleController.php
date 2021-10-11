@@ -131,4 +131,23 @@ class ArticleController
         }
         return false;
     }
+
+    public function edit($id, $user){
+        $article = (new ArticleManager)->getSingleEntity($id);
+        if($user->getId() === $article->getUser()->getId() || $user->getRole() === "admin" || $user->getRole() === "mode"){
+            $this->render("Article/edit", "Edit " . $article->getTitle(),$article);
+        }
+    }
+
+    public function editContent($title, $content, $id, $user, $cat){
+        $article = (new ArticleManager)->getSingleEntity($id);
+        if($article){
+            if((new CategoryManager)->getSingleEntity($cat)){
+                if($user->getId() === $article->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){
+                    (new ArticleManager)->edit($title, $content, $id, $cat);
+                }
+            }
+
+        }
+    }
 }

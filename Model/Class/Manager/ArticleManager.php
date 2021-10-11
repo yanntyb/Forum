@@ -41,4 +41,14 @@ class ArticleManager
         }
         return false;
     }
+
+    public function edit($title, $description, $id, $cat){
+        $conn = $this->db->prepare("UPDATE article SET title = :title, content = :content, date = :date, category_fk = :cat WHERE id = :id");
+        $conn->bindValue(":title", $this->sanitize($title));
+        $conn->bindValue(":content",$this->sanitize($description));
+        $conn->bindValue(":date", "Modifié le " . date("d/m/Y H:m:s"));
+        $conn->bindValue(":cat", $this->sanitize($cat));
+        $conn->bindValue(":id", $this->sanitize($id));
+        $conn->execute();
+    }
 }

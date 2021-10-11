@@ -30,4 +30,21 @@ class CategoryController
     public function publish(string $title, $content){
         return (new CategoryManager)->publish($title, $content);
     }
+
+    public function edit($id, $user){
+        $category = (new CategoryManager)->getSingleEntity($id);
+        if($category){
+            $this->render("Category/edit","Edit " . $category->getName(), $category);
+        }
+        else{
+            header("Location: index.php");
+        }
+    }
+
+    public function editTitle($name, $id, $user, $desc){
+        $category = (new CategoryManager)->getSingleEntity($id);
+        if($category && $user->getRole()->getName() === "admin"){
+            (new CategoryManager)->edit($name, $id, $desc);
+        }
+    }
 }

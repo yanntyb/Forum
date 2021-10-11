@@ -82,4 +82,10 @@
 
 .delete{
     z-index: 1;
+    margin: 0.5%;
+}
+
+.edit:hover{
+    color: greenyellow;
+    cursor: pointer;
 }
