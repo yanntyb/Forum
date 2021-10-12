@@ -13,16 +13,18 @@
             <div>
 
                     <?php
-                    if(!is_array($var)){?>
-                        <input name="category" class="hidden" type="text" value="<?= $var->getId() ?>">
-                        <input name="page" class="hidden" type="text" value="<?= $var->getId() ?>"><?php
+                    if(!is_array($var[0])){?>
+                        <input name="category" class="hidden" type="text" value="<?= $var[0]->getId() ?>">
+                        <input name="page" class="hidden" type="text" value="<?= $var[0]->getId() ?>"><?php
                     }
                     else{?>
                         <h2>Categorie</h2>
                         <div class="select">
                             <select name="category"><?php
-                            foreach($var as $cat){?>
-                                <option value="<?= $cat->getId()?>"><?= $cat->getName() ?></option><?php
+                            foreach($var[0] as $cat){
+                                if($cat->getArchive() === 0 || $var[1]->getRole()->getName() === "admin"){?>
+                                    <option value="<?= $cat->getId()?>"><?= $cat->getName() ?></option><?php
+                                }
                             }?>
                             </select>
                         </div><?php

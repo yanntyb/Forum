@@ -42,7 +42,7 @@ else{
                         <?= $comment->getContent() ?>
                     </div>
                 </div><?php
-                if($user){
+                if($user && ($comment->getArticle()->getCategory()->getArchive() === 0 || $user->getRole()->getName() === "admin")){
                     if($user->getId() === $comment->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){?>
                         <a href="/index.php?page=article&methode=render&article=<?=$comment->getArticle()->getId() ?>"  class="far fa-trash-alt delete" data-type="comment" data-id="<?= $comment->getId() ?>"></a>
                         <a href="/index.php?page=comment&methode=edit&id=<?= $comment->getId() ?>" class="far fa-edit edit"></a>
@@ -50,7 +50,7 @@ else{
                     }
                 }
             }
-            if($user){
+            if(($user && $var->getCategory()->getArchive() === 0) || ($user && $user->getRole()->getName() === "admin")){
                 ?>
                 <form action="/index.php?page=comment&methode=new" method="post" class="comment-single" id="form-comment">
                     <div class="comment-user">

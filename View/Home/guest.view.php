@@ -12,15 +12,17 @@
     <div id="home-main-list">
         <?php
         if($user){
-            if($var["same"][0]){?>
+            if($var["same"][0] && ((new CategoryManager)->getSingleEntity($var["same"][1])->getArchive() === 0 || $user->getRole()->getName() === "admin")){?>
                 <a href="?page=create&type=article&cat=<?= $var["same"][1] ?>" class="home-article-content create">
                     <h2 class="home-article-title center">Créer une publication</h2>
                 </a><?php
             }
-            else{?>
-                <a href="?page=create&type=article" class="home-article-content create">
-                    <h2 class="home-article-title center">Créer une publication</h2>
-                </a><?php
+            else{
+                if(!$var["same"][0] || (new CategoryManager)->getSingleEntity($var["same"][1])->getArchive() === 0 || $user->getRole()->getName() === "admin"){?>
+                    <a href="?page=create&type=article" class="home-article-content create">
+                        <h2 class="home-article-title center">Créer une publication</h2>
+                    </a><?php
+                }
             }?>
         <?php
         }

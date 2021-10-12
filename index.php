@@ -111,13 +111,13 @@ if(isset($_GET["page"])){
                         require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
                         if(isset($_GET["cat"])){
                             if((new CategoryManager)->getSingleEntity($_GET["cat"])){
-                                (new ArticleController)->render_create($_GET["cat"]);
+                                (new ArticleController)->render_create($user, $_GET["cat"]);
                             }
                             else{
-                                (new ArticleController)->render_create();
+                                (new ArticleController)->render_create($user);
                             }
                         }
-                        (new ArticleController)->render_create();
+                        (new ArticleController)->render_create($user);
                     }
                     else if($_GET["type"] === "category"){
                         if($user->getRole()->getName() === "admin"){

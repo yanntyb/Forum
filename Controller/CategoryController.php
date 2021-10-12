@@ -51,7 +51,7 @@ class CategoryController
     public function archive($id, $user){
         $category = (new CategoryManager)->getSingleEntity($id);
         if($category && $user->getRole()->getName() === "admin"){
-            (new CategoryManager)->archive($id);
+            (new CategoryManager)->archive($id, $category->getArchive());
         }
     }
 }

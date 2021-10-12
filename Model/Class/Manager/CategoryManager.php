@@ -41,9 +41,15 @@ class CategoryManager
         $conn->execute();
     }
 
-    public function archive($id){
-        $conn = $this->db->prepare("UPDATE category SET archive = 1 WHERE id = :id");
+    public function archive(int $id,$state){
+        $conn = $this->db->prepare("UPDATE category SET archive = :state WHERE id = :id");
         $conn->bindValue(":id", $this->sanitize($id));
+        if($state === 1){
+            $conn->bindValue(":state", 0);
+        }
+        else{
+            $conn->bindValue(":state", 1);
+        }
         $conn->execute();
     }
 }

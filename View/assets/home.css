@@ -94,3 +94,8 @@
     color: blue;
     cursor: pointer;
 }
+
+.archive-span{
+    margin-left: 2%;
+    color: red;
+}

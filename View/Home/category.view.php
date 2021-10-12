@@ -19,7 +19,12 @@ else{
         foreach($var as $category){?>
             <div class="home-article-container">
             <a class="home-article-content" style="background-color:<?= $category->getColor() ?>" href="?page=category&cat=<?= $category->getId() ?>" >
-                <h2 class="home-article-title"><?= ucfirst($category->getName()) . "   (" . ucfirst($category->getDescription()) . ")" ?></h2>
+                <h2 class="home-article-title"><?php
+                    echo ucfirst($category->getName()) . "   (" . ucfirst($category->getDescription()) . ")";
+                    if($category->getArchive() === 1){
+                        echo "<span class='archive-span'>Archivé</span>";
+                    }
+                ?></h2>
             </a><?php
                 if($user){
                     if($user->getRole()->getName() === "admin"){?>
