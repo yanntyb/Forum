@@ -241,9 +241,9 @@ if(isset($_GET["page"])){
         case "category":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             if(isset($_GET["id"])) {
+                require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
                 switch($_GET["methode"]) {
                     case "edit" :
-                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/CategoryController.php";
                         if (isset($_SESSION["user"])) {
                             $user = unserialize($_SESSION["user"]);
                             if (!is_array($user)) {
@@ -254,8 +254,16 @@ if(isset($_GET["page"])){
                         } else {
                             header("Location: index.php");
                         }
+                        break;
                     case "archive":
+                        if(isset($_SESSION["user"])){
+                            $user = unserialize($_SESSION["user"]);
+                            if(!is_array($user)){
 
+                                (new CategoryController)->archive($_GET["id"], $user);
+                            }
+                        }
+                        header("Location: index.php?page=category");
                         break;
                     default:
                         header("Location: index.php");
