@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller\Traits;
+namespace Yanntyb\App\Model\Traits;
 
 trait RenderViewTrait {
 

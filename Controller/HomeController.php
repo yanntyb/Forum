@@ -1,6 +1,11 @@
 <?php
 
-use Controller\Traits\RenderViewTrait;
+namespace Yanntyb\App\Controller;
+
+use ArticleManager;
+use CategoryManager;
+use UserManager;
+use Yanntyb\App\Model\Trait\RenderViewTrait;
 
 class HomeController
 {

@@ -1,5 +1,8 @@
 <?php
 
+namespace Yanntyb\App\Controller;
+
+use CategoryManager;
 use Controller\Traits\RenderViewTrait;
 
 class CategoryController

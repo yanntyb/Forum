@@ -1,6 +1,8 @@
 <?php
 
-use Controller\Traits\GlobalEntityTrait;
+namespace Yanntyb\App\Model\Classes\Entity;
+
+use Yanntyb\App\Model\Trait\GlobalEntityTrait;
 
 class User
 {

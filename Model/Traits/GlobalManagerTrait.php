@@ -1,8 +1,8 @@
 <?php
 
-namespace Controller\Traits;
+namespace Yanntyb\App\Model\Traits;
 
-use App\Classes\DB;
+use Yanntyb\App\Model\Classes\DB;
 use PDO;
 use PDOException;
 
@@ -41,7 +41,7 @@ trait GlobalManagerTrait
             $results = $conn->fetch();
             if($results){
                 //Créée l'entité qui porte le nom $name
-                $obj = new $this->name;
+                $obj = new ("Yanntyb\\App\\Model\\Classe\\Entity\\" . $this->name);
                 //Parcoure toute les valeurs fetch
                 return $this->getObj($results, $obj);
             }
@@ -128,7 +128,7 @@ trait GlobalManagerTrait
             if($this->checkIfTableExist($name)){
                 $subObjName = ucfirst(explode("_",$name)[0]);
                 $managerName = $subObjName . "Manager";
-                $manager = new $managerName;
+                $manager = new ("Yanntyb\\App\\Model\\Classe\\Manager\\" . $managerName);
                 return $manager->getSingleEntity($id);
             }
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes;
+namespace Yanntyb\App\Model\Classes;
 use PDO;
 use PDOException;
 

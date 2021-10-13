@@ -1,5 +1,8 @@
 <?php
 
+namespace Yanntyb\App\Controller;
+
+use CommentManager;
 use Controller\Traits\RenderViewTrait;
 
 class CommentController

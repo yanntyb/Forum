@@ -1,10 +1,12 @@
 <?php
 
-use Controller\Traits\GlobalEntityTrait;
+namespace Yanntyb\App\Model\Classes\Entity;
+
+//use Yanntyb\App\Model\Traits\GlobalEntityTrait;
 
 class Article
 {
-    use GlobalEntityTrait;
+    //use GlobalEntityTrait;
 
     private string $title;
     private string $content;

@@ -1,5 +1,10 @@
 <?php
 
+namespace Yanntyb\App\Controller;
+
+use TokenManager;
+use UserManager;
+
 class LoginController
 {
 

@@ -1,6 +1,6 @@
 <?php
 
-use Controller\Traits\GlobalManagerTrait;
+use Yanntyb\App\Model\Traits\GlobalManagerTrait;
 
 class UserManager
 {

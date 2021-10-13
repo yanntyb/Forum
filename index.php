@@ -2,29 +2,7 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/DB.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Trait/RenderViewTrait.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Trait/GlobalManagerTrait.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Trait/GlobalEntityTrait.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Role.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/RoleManager.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/User.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/UserManager.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Category.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/CategoryManager.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Comment.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/CommentManager.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Article.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/ArticleManager.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Entity/Token.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/Model/Class/Manager/TokenManager.php";
+require "vendor/autoload.php";
 
 session_start();
 
@@ -32,7 +10,7 @@ if(isset($_GET["page"])){
     switch($_GET["page"]){
         case "article":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/ArticleController.php";
-            //If render_by_id return false mean that articleManager couldnt resolved the article based on his id ($_GET["article"]
+            //If render_by_id return false mean that articleManager could not resolved the article based on his id ($_GET["article"]
             //If so user is redirect to home page
             switch($_GET["methode"]){
                 case "edit":
@@ -53,6 +31,7 @@ if(isset($_GET["page"])){
                     }
                     break;
             }
+            break;
         case "login":
             require_once $_SERVER["DOCUMENT_ROOT"] . "/Controller/HomeController.php";
             (new HomeController)->render_connect();

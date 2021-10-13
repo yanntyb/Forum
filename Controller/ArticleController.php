@@ -1,6 +1,11 @@
 <?php
 
-use Controller\Traits\RenderViewTrait;
+namespace Yanntyb\App\Controller;
+
+use ArticleManager;
+use CategoryManager;
+use CommentManager;
+use Yanntyb\App\Model\Traits\RenderViewTrait;
 
 class ArticleController
 {
@@ -73,45 +78,6 @@ class ArticleController
         else{
             return false;
         }
-    }
-
-    /**
-     * Encode all articles in dataBase in json to be displayed by JS when one is removed with AJAX
-     * @return false|string
-     */
-    public function all_to_json($catId = null){
-        if(isset($_SESSION["user"]) && !is_array(unserialize($_SESSION["user"]))){
-            $userId = unserialize($_SESSION["user"])->getId();
-        }
-        else{
-            $userId = false;
-        }
-        if($catId){
-            $articles = (new ArticleManager)->getAllEntity("category_fk",$catId);
-        }
-        else{
-            $articles = (new ArticleManager)->getAllEntity();
-        }
-
-        $return = [];
-        foreach($articles as $article){
-            $return[] = [
-                "title" => $article->getTitle(),
-                "category" => [
-                    "name" => $article->getCategory(),
-                    "color" => $article->getCategory()->getColor(),
-                ],
-                "id" => $article->getId(),
-                "user" => [
-                    "id" => $article->getUser()->getId(),
-                    "img" => $article->getUser()->getImg()
-                ],
-                "connected" => [
-                    "id" => $userId
-                ]
-            ];
-        }
-        return json_encode($return);
     }
 
     /**

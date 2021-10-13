@@ -1,0 +1,19 @@
+{
+    "name": "yanntyb/app",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Yanntyb\\App\\": "/"
+        }
+    },
+    "authors": [
+        {
+            "name": "yann tyb",
+            "email": "yanntyb.lbc@gmail.com"
+        }
+    ],
+    "require": {
+        "djordje/filebrowser": "dev-master",
+        "symfony/var-dumper": "^5.3"
+    }
+}
