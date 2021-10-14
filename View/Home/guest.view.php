@@ -1,5 +1,8 @@
 <?php
-    if(isset($_SESSION["user"])){
+
+use Yanntyb\App\Model\Classes\Manager\CategoryManager;
+
+if(isset($_SESSION["user"])){
         $user = unserialize($_SESSION["user"]);
     }
     else{
@@ -50,7 +53,15 @@
                         <figcaption><?= substr($article->getUser()->getName(),0,40) ?></figcaption>
                     </figure>
 
-                    <h2 class="home-article-title"><?= ucfirst($article->getTitle()) ?></h2>
+                    <h2 class="home-article-title"><?php
+                        echo ucfirst($article->getTitle());
+                        if($article->getArchive() === 1){
+                            echo "<span class='archive-span'>(Archivé)</span>";
+                        }
+                        else if ($article->getCategory()->getArchive() === 1){
+                            echo "<span class='archive-span'>(Categorie archivé)</span>";
+                        }
+                        ?></h2>
                     <aside class="home-article-date"><?= $article->getDate();?>
                     </aside>
             </a><?php
@@ -68,7 +79,7 @@
                        ?>"
                        class="far fa-trash-alt delete" data-type="article" data-id="<?= $article->getId() ?>"></a>
                     <a href="/index.php?page=article&methode=edit&id=<?= $article->getId() ?>" class="far fa-edit edit"></a>
-
+                    <a href="/index.php?page=article&methode=archive&id=<?= $article->getId() ?>" class="far fa-file-archive archive"></a>
                     <?php
                 }
             }

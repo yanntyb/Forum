@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/View/assets/connect.css">
-
 <div id="main">
     <div>
         <h2>Connexion</h2>

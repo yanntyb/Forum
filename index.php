@@ -7,29 +7,18 @@ session_start();
 
 require "vendor/autoload.php";
 
-use Yanntyb\App\Model\Traits\GlobalEntityTrait;
-use Yanntyb\App\Model\Traits\GlobalManagerTrait;
-use Yanntyb\App\Model\Traits\RenderViewTrait;
-
-use Yanntyb\App\Model\Classes\Entity\Role;
-use Yanntyb\App\Model\Classes\Entity\User;
-use Yanntyb\App\Model\Classes\Entity\Comment;
-use Yanntyb\App\Model\Classes\Entity\Article;
-use Yanntyb\App\Model\Classes\Entity\Category;
-use Yanntyb\App\Model\Classes\Entity\Token;
-
-use Yanntyb\App\Model\Classes\Manager\RoleManager;
-use Yanntyb\App\Model\Classes\Manager\UserManager;
+use Yanntyb\App\Controller\ProfileController;
 use Yanntyb\App\Model\Classes\Manager\CommentManager;
-use Yanntyb\App\Model\Classes\Manager\ArticleManager;
 use Yanntyb\App\Model\Classes\Manager\CategoryManager;
-use Yanntyb\App\Model\Classes\Manager\TokenManager;
 
 use Yanntyb\App\Controller\ArticleController;
 use Yanntyb\App\Controller\CategoryController;
 use Yanntyb\App\Controller\CommentController;
 use Yanntyb\App\Controller\HomeController;
 use Yanntyb\App\Controller\LoginController;
+
+use Yanntyb\App\Model\Classes\Manager\RoleManager;
+use Yanntyb\App\Model\Classes\Manager\UserManager;
 
 
 if(isset($_GET["page"])){
@@ -54,6 +43,13 @@ if(isset($_GET["page"])){
                         header("Location: index.php");
                         break;
                     }
+                    break;
+                case "archive":
+                    $user = unserialize($_SESSION["user"]);
+                    if(!is_array($user)){
+                        (new ArticleController)->archive($_GET["id"], $user);
+                    }
+                    header("Location: index.php?new={$_GET['id']}");
                     break;
             }
             break;
@@ -161,7 +157,7 @@ if(isset($_GET["page"])){
                 else if($_GET["type"] === "category"){
                     $user = unserialize($_SESSION["user"]);
                     if($user->getRole()->getName() === "admin"){
-                        $category = (new CategoryController)->publish($_POST["title"], $_POST["content"]);
+                        $category = (new CategoryController)->publish($_POST["title"], $_POST["content"], $_POST["color"]);
                         header("Location: index.php?page=category");
                     }
                     else{
@@ -272,10 +268,10 @@ if(isset($_GET["page"])){
         case "edit":
             switch ($_GET["type"]){
                 case "category":
-                    if(isset($_POST["title"], $_POST["id"], $_POST["description"])){
+                    if(isset($_POST["title"], $_POST["id"], $_POST["description"], $_POST["color"])){
                         $user = unserialize($_SESSION["user"]);
                         if(!is_array($user)){
-                            (new CategoryController)->editTitle($_POST["title"] , $_POST["id"], $user, $_POST["description"]);
+                            (new CategoryController)->editTitle($_POST["title"] , $_POST["id"], $user, $_POST["description"], $_POST["color"]);
                         }
                     }
                     header("Location: index.php?page=category");
@@ -303,7 +299,28 @@ if(isset($_GET["page"])){
                     else{
                         header("Location: index.php");
                     }
-
+                    break;
+                case "profile":
+                    $user = unserialize($_SESSION["user"]);
+                    if(!is_array($user)){
+                        if(isset($_POST["oldPass"],$_POST["newPass"],$_POST["newPassConfirme"],$_POST["name"])){
+                            if($_POST["oldPass"] === $user->getPass() && $_POST["newPass"] !== "" && $_POST["newPassConfirme"] !== "" && $_POST["newPass"] === $_POST["newPassConfirme"]){
+                                (new ProfileController)->changePass($_POST["newPass"],$user);
+                            }
+                            if($_POST["name"] !== ""){
+                                (new ProfileController)->changeName($_POST["name"], $user);
+                            }
+                        }
+                        $_SESSION["user"] = serialize((new UserManager)->getSingleEntity($user->getId()));
+                    }
+                    header("Location: index.php");
+                    break;
+            }
+            break;
+        case "profile":
+            $user = unserialize($_SESSION["user"]);
+            if(!is_array($user)){
+                (new ProfileController)->editProfile($user);
             }
     }
 }

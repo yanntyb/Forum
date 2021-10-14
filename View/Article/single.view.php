@@ -1,4 +1,7 @@
 <?php
+
+use Yanntyb\App\Model\Classes\Manager\CommentManager;
+
 if(isset($_SESSION["user"])){
     $user = unserialize($_SESSION["user"]);
 }
@@ -10,8 +13,15 @@ else{
 <link rel="stylesheet" href="/View/assets/single.css">
 <div id="single-main">
     <div id="single-content" data-userid="<?= $var->getUser()->getId() ?>">
-        <h1 class="single-title">
-            <?= ucfirst($var->getTitle()) ?>
+        <h1 class="single-title"><?php
+            echo ucfirst($var->getTitle());
+            if($var->getArchive() === 1){
+                echo "<span style='color: red'>  (Archivé)</span>";
+            }
+            else if ($var->getCategory()->getArchive() === 1){
+                echo "<span style='color: red'>  (Categorie archivé)</span>";
+            }
+            ?>
         </h1>
         <div id="single-article">
             <div id="single-article-user">
@@ -50,7 +60,7 @@ else{
                     }
                 }
             }
-            if(($user && $var->getCategory()->getArchive() === 0) || ($user && $user->getRole()->getName() === "admin")){
+            if(($user && $var->getCategory()->getArchive() === 0 && $var->getArchive() === 0) || ($user && $user->getRole()->getName() === "admin")){
                 ?>
                 <form action="/index.php?page=comment&methode=new" method="post" class="comment-single" id="form-comment">
                     <div class="comment-user">
@@ -65,6 +75,10 @@ else{
                         <input class="hidden" type="text" name="article-id" value="<?= $var->getId()?>">
                     </div>
                 </form><?php
+            }
+            else{?>
+                <h1 class="single-title">L'ajout de commentaire ne vous est pas permis pour cette article</h1>
+                <?php
             }
         ?>
     </div>

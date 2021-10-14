@@ -30,8 +30,9 @@ class CategoryController
      * @param $content
      * @return bool
      */
-    public function publish(string $title, $content){
-        return (new CategoryManager)->publish($title, $content);
+    public function publish(string $title, $content, $color): bool
+    {
+        return (new CategoryManager)->publish($title, $content, $color);
     }
 
     public function edit($id, $user){
@@ -44,10 +45,10 @@ class CategoryController
         }
     }
 
-    public function editTitle($name, $id, $user, $desc){
+    public function editTitle($name, $id, $user, $desc, $color){
         $category = (new CategoryManager)->getSingleEntity($id);
         if($category && $user->getRole()->getName() === "admin"){
-            (new CategoryManager)->edit($name, $id, $desc);
+            (new CategoryManager)->edit($name, $id, $desc, $color);
         }
     }
 

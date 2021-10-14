@@ -20,7 +20,10 @@
                 <h2>Nouvelle description</h2>
                 <input required class="title" name="description" type="text" placeholder="Une description trop longue sera coupé">
             </div>
-
+            <div>
+                <h2>Couleur</h2>
+                <input name="color" type="color" value="<?= $var->getColor() ?>">
+            </div>
             <input type="text" class="hidden" name="id" value="<?= $var->getId() ?>">
             <div id="submit">
                 <input type="submit" value="Publier">

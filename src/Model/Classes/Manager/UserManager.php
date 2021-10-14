@@ -2,6 +2,8 @@
 
 namespace Yanntyb\App\Model\Classes\Manager;
 
+use Yanntyb\App\Model\Classes\Entity\User;
+
 use Yanntyb\App\Model\Traits\GlobalManagerTrait;
 
 class UserManager
@@ -25,7 +27,8 @@ class UserManager
                         ->setName($result["name"])
                         ->setId($result["id"])
                         ->setRole((new RoleManager)->getSingleEntity($result["role_fk"]))
-                        ->setImg($result["img"]);
+                        ->setImg($result["img"])
+                        ->setPass($result["pass"]);
                 }
                 return false;
             }
@@ -49,5 +52,19 @@ class UserManager
             return true;
         }
         return false;
+    }
+
+    public function changePass(string $newPass, int $id){
+        $conn = $this->db->prepare("UPDATE user SET pass = :pass WHERE id = :id");
+        $conn->bindValue(":pass", $this->sanitize($newPass));
+        $conn->bindValue(":id", $id);
+        $conn->execute();
+    }
+
+    public function changeName(string $newName, int $id){
+        $conn = $this->db->prepare("UPDATE user SET name = :name WHERE id = :id");
+        $conn->bindValue(":name", $this->sanitize($newName));
+        $conn->bindValue(":id", $id);
+        $conn->execute();
     }
 }

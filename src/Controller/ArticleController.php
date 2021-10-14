@@ -2,6 +2,7 @@
 
 namespace Yanntyb\App\Controller;
 
+use Yanntyb\App\Model\Classes\Entity\User;
 use Yanntyb\App\Model\Classes\Manager\ArticleManager;
 use Yanntyb\App\Model\Classes\Manager\CategoryManager;
 use Yanntyb\App\Model\Classes\Manager\CommentManager;
@@ -115,6 +116,13 @@ class ArticleController
                 }
             }
 
+        }
+    }
+
+    public function archive(int $id, User $user){
+        $article = (new ArticleManager)->getSingleEntity($id);
+        if($article && ($article->getUser()->getId() === $user->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode")){
+            (new ArticleManager)->archive($id, $article->getArchive());
         }
     }
 }

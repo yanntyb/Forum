@@ -10,6 +10,10 @@
                 <h2>Descriptif </h2>
                 <textarea required name="content"></textarea>
             </div>
+            <div>
+                <h2>Couleur</h2>
+                <input name="color" type="color" value="#D0E0ED">
+            </div>
             <div id="submit">
                 <input type="submit" value="Publier">
             </div>

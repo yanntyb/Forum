@@ -13,6 +13,7 @@ class Article
     private Category $category;
     private User $user;
     private string $date;
+    private int $archive;
 
     /**
      * @return string
@@ -103,5 +104,25 @@ class Article
         $this->date = $date;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getArchive(): int
+    {
+        return $this->archive;
+    }
+
+    /**
+     * @param int $archive
+     * @return Article
+     */
+    public function setArchive(int $archive): Article
+    {
+        $this->archive = $archive;
+        return $this;
+    }
+
+
 
 }

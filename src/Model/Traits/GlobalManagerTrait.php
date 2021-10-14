@@ -30,11 +30,10 @@ trait GlobalManagerTrait
      * Default is id = :id
      * @param string $val
      * @param string $col
-     * @return mixed
      */
-    public function getSingleEntity(string $val, string $col = "id"): mixed
+    public function getSingleEntity(string $val, string $col = "id")
     {
-        $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name) . " WHERE " . $this->sanitize($col) . " = :id");
+        $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->getClassName()) . " WHERE " . $this->sanitize($col) . " = :id");
         $conn->bindValue(":id", $this->sanitize($val));
         if($conn->execute()){
             $results = $conn->fetch();
@@ -122,13 +121,14 @@ trait GlobalManagerTrait
     //Si $first === true c'est que c'est la premiere iteration , le manager correspond donc et on a pas besoin den créé un nouveau
     public function createObj(string $name, bool $first, $id = 0){
         if($first){
-            return new $name;
+            $qualifiedName = "Yanntyb\\App\\Model\\Classes\\Entity\\" .$name;
+            return new $qualifiedName;
         }
         else{
             if($this->checkIfTableExist($name)){
                 $subObjName = ucfirst(explode("_",$name)[0]);
                 $managerName = $subObjName . "Manager";
-                $qualifiedName = "Yanntyb\\App\\Model\\Classe\\Manager\\" . $managerName;
+                $qualifiedName = "Yanntyb\\App\\Model\\Classes\\Manager\\" . $managerName;
                 $manager = new $qualifiedName;
                 return $manager->getSingleEntity($id);
             }
@@ -138,7 +138,6 @@ trait GlobalManagerTrait
     /**
      * @param $results
      * @param $obj
-     * @return mixed
      */
     public function getObj($results, $obj)
     {

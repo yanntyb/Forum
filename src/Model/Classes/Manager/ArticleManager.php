@@ -54,4 +54,16 @@ class ArticleManager
         $conn->bindValue(":id", $this->sanitize($id));
         $conn->execute();
     }
+
+    public function archive(int $id, $archiveState){
+        $conn = $this->db->prepare("UPDATE article SET archive = :archive WHERE id = :id");
+        $conn->bindValue(":id",$id);
+        if($archiveState === 0){
+            $conn->bindValue(":archive", 1);
+        }
+        else{
+            $conn->bindValue(":archive", 0);
+        }
+        $conn->execute();
+    }
 }
