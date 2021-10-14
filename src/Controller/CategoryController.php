@@ -2,8 +2,8 @@
 
 namespace Yanntyb\App\Controller;
 
-use CategoryManager;
-use Controller\Traits\RenderViewTrait;
+use Yanntyb\App\Model\Classes\Manager\CategoryManager;
+use Yanntyb\App\Model\Traits\RenderViewTrait;
 
 class CategoryController
 {

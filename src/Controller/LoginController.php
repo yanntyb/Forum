@@ -2,13 +2,15 @@
 
 namespace Yanntyb\App\Controller;
 
-use TokenManager;
-use UserManager;
+use Exception;
+use Yanntyb\App\Model\Classes\Manager\TokenManager;
+use Yanntyb\App\Model\Classes\Manager\UserManager;
 
 class LoginController
 {
 
-    public function checkLog($name, $pass){
+    public function checkLog($name, $pass)
+    {
         return (new UserManager)->checkLog($name,$pass);
     }
 

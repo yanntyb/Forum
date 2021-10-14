@@ -3,7 +3,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Yanntyb\\App\\": "/"
+            "Yanntyb\\App\\": "src/"
         }
     },
     "authors": [
@@ -14,6 +14,7 @@
     ],
     "require": {
         "djordje/filebrowser": "dev-master",
-        "symfony/var-dumper": "^5.3"
+        "symfony/var-dumper": "^5.3",
+      "ext-pdo": "*"
     }
 }

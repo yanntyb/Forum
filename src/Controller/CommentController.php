@@ -2,8 +2,8 @@
 
 namespace Yanntyb\App\Controller;
 
-use CommentManager;
-use Controller\Traits\RenderViewTrait;
+use Yanntyb\App\Model\Classes\Manager\CommentManager;
+use Yanntyb\App\Model\Traits\RenderViewTrait;
 
 class CommentController
 {

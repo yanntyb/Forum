@@ -2,11 +2,11 @@
 
 namespace Yanntyb\App\Model\Classes\Entity;
 
-//use Yanntyb\App\Model\Traits\GlobalEntityTrait;
+use Yanntyb\App\Model\Traits\GlobalEntityTrait;
 
 class Article
 {
-    //use GlobalEntityTrait;
+    use GlobalEntityTrait;
 
     private string $title;
     private string $content;

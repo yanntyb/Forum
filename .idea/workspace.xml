@@ -2,46 +2,57 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b83603c2-5760-4b8b-bcc0-3c0e3e6ecf63" name="Changes" comment="creation d'article appartenant a une categorie en fonction du role de l'user et de letat d'archivement de la categorie">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/DB.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Entity/Article.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Entity/Category.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Entity/Comment.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Entity/Role.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Entity/Token.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Entity/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Entity/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Manager/ArticleManager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Manager/CategoryManager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Manager/CommentManager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Manager/RoleManager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Manager/TokenManager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Classes/Manager/UserManager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ArticleController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/CategoryController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/CommentController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/LoginController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/DB.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Entity/Article.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Entity/Category.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Entity/Comment.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Entity/Role.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Entity/Token.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Entity/User.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Entity/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/ArticleManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/CategoryManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/CommentManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/DatabaseManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/RoleManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/TokenManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/UserManager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Traits/GlobalEntityTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Traits/GlobalManagerTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/Traits/RenderViewTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Forum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Forum.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/ArticleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/CommentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/DB.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Entity/Article.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Entity/Category.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Entity/Comment.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Entity/Role.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Entity/Token.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Entity/User.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Manager/ArticleManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Manager/CategoryManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Manager/CommentManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Manager/RoleManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Manager/TokenManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Class/Manager/UserManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Trait/GlobalEntityTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Traits/GlobalEntityTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Trait/GlobalManagerTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Traits/GlobalManagerTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Trait/RenderViewTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Traits/RenderViewTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/ArticleController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/CategoryController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/CommentController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/HomeController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/LoginController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/DB.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Entity/Article.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Entity/Category.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Entity/Comment.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Entity/Role.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Entity/Token.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Entity/User.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Entity/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Manager/ArticleManager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Manager/CategoryManager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Manager/CommentManager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Manager/RoleManager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Manager/TokenManager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Classes/Manager/UserManager.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Traits/GlobalEntityTrait.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Traits/GlobalManagerTrait.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Traits/RenderViewTrait.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/Home/category.view.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Home/category.view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/assets/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/View/assets/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,6 +111,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -145,7 +157,9 @@
       <workItem from="1634040000940" duration="8694000" />
       <workItem from="1634054831200" duration="2709000" />
       <workItem from="1634108074620" duration="4077000" />
-      <workItem from="1634112418517" duration="780000" />
+      <workItem from="1634112418517" duration="1862000" />
+      <workItem from="1634114708731" duration="8050000" />
+      <workItem from="1634197042913" duration="1226000" />
     </task>
     <task id="LOCAL-00001" summary="Base structure">
       <created>1633439841497</created>
@@ -424,6 +438,16 @@
     <MESSAGE value="update archive category" />
     <MESSAGE value="creation d'article appartenant a une categorie en fonction du role de l'user et de letat d'archivement de la categorie" />
     <option name="LAST_COMMIT_MESSAGE" value="creation d'article appartenant a une categorie en fonction du role de l'user et de letat d'archivement de la categorie" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/Model/Classes/Manager/RoleManager.php</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

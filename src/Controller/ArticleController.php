@@ -2,9 +2,9 @@
 
 namespace Yanntyb\App\Controller;
 
-use ArticleManager;
-use CategoryManager;
-use CommentManager;
+use Yanntyb\App\Model\Classes\Manager\ArticleManager;
+use Yanntyb\App\Model\Classes\Manager\CategoryManager;
+use Yanntyb\App\Model\Classes\Manager\CommentManager;
 use Yanntyb\App\Model\Traits\RenderViewTrait;
 
 class ArticleController

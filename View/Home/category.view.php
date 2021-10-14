@@ -11,6 +11,12 @@ else{
 <div id="home-main">
     <div id="home-main-list">
         <?php
+        if($var === []){?>
+            <div class="home-article-content create">
+                <h2 class="home-article-title center">Il n'y a aucune categorie</h2>
+            </div>
+            <?php
+        }
         if($user && $user->getRole()->getName() === "admin"){?>
             <a href="?page=create&type=category" class="home-article-content create">
                 <h2 class="home-article-title center">Créer une categorie</h2>

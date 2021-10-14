@@ -2,7 +2,7 @@
 
 namespace Yanntyb\App\Model\Classes\Entity;
 
-use Yanntyb\App\Model\Trait\GlobalEntityTrait;
+use Yanntyb\App\Model\Traits\GlobalEntityTrait;
 
 /**
  * Class used for register new user

@@ -2,10 +2,10 @@
 
 namespace Yanntyb\App\Controller;
 
-use ArticleManager;
-use CategoryManager;
-use UserManager;
-use Yanntyb\App\Model\Trait\RenderViewTrait;
+use Yanntyb\App\Model\Classes\Manager\ArticleManager;
+use Yanntyb\App\Model\Classes\Manager\CategoryManager;
+use Yanntyb\App\Model\Classes\Manager\UserManager;
+use Yanntyb\App\Model\Traits\RenderViewTrait;
 
 class HomeController
 {

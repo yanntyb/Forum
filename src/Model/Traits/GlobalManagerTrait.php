@@ -10,7 +10,6 @@ trait GlobalManagerTrait
 {
 
     private ?PDO $db;
-    private string $name;
     private array $fk;
 
     /**
@@ -18,7 +17,6 @@ trait GlobalManagerTrait
      */
     public function __construct(){
         $this->db = DB::getInstance();
-        $this->name = $this->getClassName();
         $this->fk = [];
     }
 
@@ -32,16 +30,18 @@ trait GlobalManagerTrait
      * Default is id = :id
      * @param string $val
      * @param string $col
-     * @return false|mixed
+     * @return mixed
      */
-    public function getSingleEntity(string $val, string $col = "id"){
+    public function getSingleEntity(string $val, string $col = "id"): mixed
+    {
         $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name) . " WHERE " . $this->sanitize($col) . " = :id");
         $conn->bindValue(":id", $this->sanitize($val));
         if($conn->execute()){
             $results = $conn->fetch();
             if($results){
                 //Créée l'entité qui porte le nom $name
-                $obj = new ("Yanntyb\\App\\Model\\Classe\\Entity\\" . $this->name);
+                $qualifiedName = "Yanntyb\App\Model\Classes\Entity\\" . $this->getClassName();
+                $obj = new $qualifiedName;
                 //Parcoure toute les valeurs fetch
                 return $this->getObj($results, $obj);
             }
@@ -60,16 +60,16 @@ trait GlobalManagerTrait
     public function getAllEntity(string $col = null, string $colVal = null): array
     {
         if($col && $colVal){
-            $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name) . " WHERE " . $this->sanitize($col) . " = " . $this->sanitize($colVal));
+            $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->getClassName()) . " WHERE " . $this->sanitize($col) . " = " . $this->sanitize($colVal));
         }
         else{
-            $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->name) );
+            $conn = $this->db->prepare("SELECT * FROM " . strtolower($this->getClassName()) );
         }
         $return = [];
         if($conn->execute()){
             $results = $conn->fetchAll();
             foreach($results as $result){
-                $obj = $this->createObj($this->name,true);
+                $obj = $this->createObj($this->getClassName(),true);
                 $obj = $this->getObj($result, $obj);
                 $return[] = $obj;
             }
@@ -78,8 +78,8 @@ trait GlobalManagerTrait
     }
 
     public function getClassName(){
-        if(strpos(get_class($this),"\\") !== false){
-            $fullName = str_split(explode("\\",get_class($this))[2]);
+        if(str_contains(get_class($this), "\\")){
+            $fullName = str_split(explode("\\",get_class($this))[5]);
         }
         else{
             $fullName = str_split(get_class($this));
@@ -128,7 +128,8 @@ trait GlobalManagerTrait
             if($this->checkIfTableExist($name)){
                 $subObjName = ucfirst(explode("_",$name)[0]);
                 $managerName = $subObjName . "Manager";
-                $manager = new ("Yanntyb\\App\\Model\\Classe\\Manager\\" . $managerName);
+                $qualifiedName = "Yanntyb\\App\\Model\\Classe\\Manager\\" . $managerName;
+                $manager = new $qualifiedName;
                 return $manager->getSingleEntity($id);
             }
         }

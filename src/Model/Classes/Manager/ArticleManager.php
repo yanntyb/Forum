@@ -1,5 +1,7 @@
 <?php
 
+namespace Yanntyb\App\Model\Classes\Manager;
+
 use Yanntyb\App\Model\Traits\GlobalManagerTrait;
 
 class ArticleManager
@@ -12,6 +14,7 @@ class ArticleManager
      * @param $content
      * @param $category
      * @param $userId
+     * @return false|string
      */
     public function publish($title, $content, $category, $userId)
     {
