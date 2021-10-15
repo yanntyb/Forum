@@ -11,7 +11,6 @@ for(let icon of delete_icone){
  * @param icon
  */
 function render(icon){
-    console.log(icon);
     let req = new XMLHttpRequest();
     req.open("POST","index.php?page=delete");
     let catId
@@ -21,5 +20,7 @@ function render(icon){
     else{
         catId = icon.dataset.cat;
     }
-    req.send(JSON.stringify({"id": icon.dataset.id, "cat": catId, "type": icon.dataset.type}));
+    let data = {"id": icon.dataset.id, "cat": catId, "type": icon.dataset.type}
+    console.log(data);
+    req.send(JSON.stringify(data));
 }

@@ -3,11 +3,11 @@
 use Yanntyb\App\Model\Classes\Manager\CategoryManager;
 
 if(isset($_SESSION["user"])){
-        $user = unserialize($_SESSION["user"]);
-    }
-    else{
-        $user = false;
-    }
+    $user = unserialize($_SESSION["user"]);
+}
+else{
+    $user = false;
+}
 ?>
 
 <link rel="stylesheet" href="View/assets/home.css">

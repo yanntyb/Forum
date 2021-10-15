@@ -7,6 +7,9 @@
         <a href="?page=deco">Déconnexion</a>
         <a href="?page=profile">Profile</a>
         <?php
+        if(unserialize($_SESSION["user"])->getRole()->getName() === "admin"){?>
+            <a href="?page=admin">Administration</a><?php
+        }
     }
     else{?>
         <a href="?page=login">Connexion</a><?php

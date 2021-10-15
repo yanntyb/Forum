@@ -8,6 +8,8 @@ session_start();
 require "vendor/autoload.php";
 
 use Yanntyb\App\Controller\ProfileController;
+use Yanntyb\App\Controller\UserController;
+use Yanntyb\App\Model\Classes\Manager\ArticleManager;
 use Yanntyb\App\Model\Classes\Manager\CommentManager;
 use Yanntyb\App\Model\Classes\Manager\CategoryManager;
 
@@ -17,9 +19,7 @@ use Yanntyb\App\Controller\CommentController;
 use Yanntyb\App\Controller\HomeController;
 use Yanntyb\App\Controller\LoginController;
 
-use Yanntyb\App\Model\Classes\Manager\RoleManager;
 use Yanntyb\App\Model\Classes\Manager\UserManager;
-
 
 if(isset($_GET["page"])){
     switch($_GET["page"]){
@@ -173,28 +173,28 @@ if(isset($_GET["page"])){
             break;
         case "delete":
             $data = json_decode(file_get_contents("php://input"));
-            if($data){
+            if($data) {
                 $user = unserialize($_SESSION["user"]);
-                if(!is_array($user)){
-                    if($data->type === "article"){
-                        if((new ArticleController)->delete($data->id, $user)){
-                            if($data->cat){
+                if (!is_array($user)) {
+                    if ($data->type === "article") {
+                        if ((new ArticleController)->delete($data->id, $user)) {
+                            if ($data->cat) {
                                 $cat = (new CategoryManager)->getSingleEntity(intval($data->cat));
                             }
                         }
-                    }
-                    else if($data->type === "category")
+                    } else if ($data->type === "category") {
                         (new CategoryController)->delete($data->id, $user);
-                    }
-                    else if($data->type === "comment"){
+                    } else if ($data->type === "comment") {
                         (new CommentController)->delete($data->id, $user);
+                    } else if ($data->type === "user") {
+                        if ($user->getRole()->getName() === "admin") {
+                            (new UserController)->delete($data->id);
+                        }
                     }
 
                 }
-                else{
-                    header("Location: index.php");
-                }
-                break;
+            }
+            break;
         case "comment":
             switch($_GET["methode"]){
                 case "new":
@@ -301,7 +301,7 @@ if(isset($_GET["page"])){
                     }
                     break;
                 case "profile":
-                    $user = unserialize($_SESSION["user"]);
+                    $user = (new UserManager)->getSingleEntity($_POST["id"]);
                     if(!is_array($user)){
                         if(isset($_POST["oldPass"],$_POST["newPass"],$_POST["newPassConfirme"],$_POST["name"])){
                             if($_POST["oldPass"] === $user->getPass() && $_POST["newPass"] !== "" && $_POST["newPassConfirme"] !== "" && $_POST["newPass"] === $_POST["newPassConfirme"]){
@@ -311,7 +311,10 @@ if(isset($_GET["page"])){
                                 (new ProfileController)->changeName($_POST["name"], $user);
                             }
                         }
-                        $_SESSION["user"] = serialize((new UserManager)->getSingleEntity($user->getId()));
+                        if($user->getId() === $_POST["id"]){
+                            $_SESSION["user"] = serialize((new UserManager)->getSingleEntity($user->getId()));
+                        }
+
                     }
                     header("Location: index.php");
                     break;
@@ -320,8 +323,39 @@ if(isset($_GET["page"])){
         case "profile":
             $user = unserialize($_SESSION["user"]);
             if(!is_array($user)){
-                (new ProfileController)->editProfile($user);
+                if(isset($_GET["id"])){
+                    $userToModif = (new UserManager)->getSingleEntity($_GET["id"]);
+                    if($userToModif){
+                        if($user->getRole()->getName() === "admin"){
+                            (new ProfileController)->editProfile($userToModif);
+                            break;
+                        }
+                        header("Location: index.php");
+                        break;
+                    }
+                    header("Location: index.php");
+                }
+                else{
+                    (new ProfileController)->editProfile($user);
+                }
+                break;
             }
+            header("Location: index.php");
+            break;
+
+        case "admin":
+            $user = unserialize($_SESSION["user"]);
+            if(!is_array($user)){
+                if(isset($_GET["methode"],$_GET["id"])){
+                    if($_GET["method"] === "modif"){
+                        $userToModif = (new UserManager)->getSingleEntity($_GET["id"]);
+                    }
+                }
+                if($user->getRole()->getName() === "admin"){
+                    (new HomeController)->render_admin();
+                }
+            }
+            break;
     }
 }
 else{

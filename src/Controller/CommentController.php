@@ -10,8 +10,15 @@ class CommentController
     use RenderViewTrait;
 
     public function delete($id, $user){
-        if((new CommentManager)->getSingleEntity($id)->getUser()->getId() === $user->getId() || $user->getRole() === "admin" || $user->getRole() === "mode"){
+        $comment = (new CommentManager)->getSingleEntity($id);
+        if($comment->getUser()->getId() === $user->getId() || $user->getRole() === "admin" || $user->getRole() === "mode"){
             (new CommentManager)->delete($id);
+            $this->logger->info("Comment deleted",
+                [
+                    "title" => $comment->getContent(),
+                    "user" => $user->getName(),
+                    "user role" => $user->getRole()->getName()
+                ]);
         }
     }
 

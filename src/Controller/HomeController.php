@@ -4,6 +4,7 @@ namespace Yanntyb\App\Controller;
 
 use Yanntyb\App\Model\Classes\Manager\ArticleManager;
 use Yanntyb\App\Model\Classes\Manager\CategoryManager;
+use Yanntyb\App\Model\Classes\Manager\LogManager;
 use Yanntyb\App\Model\Classes\Manager\UserManager;
 use Yanntyb\App\Model\Traits\RenderViewTrait;
 
@@ -72,6 +73,14 @@ class HomeController
     public function render_category(){
         $var = (new CategoryManager)->getAllEntity();
         $this->render("Home/category","Categories",$var);
+    }
+
+    public function render_admin(){
+        $var = [
+            "users" => (new UserManager)->getAllEntity(),
+            "log" => (new LogManager)->getAllLog()
+        ];
+        $this->render("Home/admin", "administration", $var);
     }
 
 

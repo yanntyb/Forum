@@ -15,6 +15,7 @@
     "require": {
         "djordje/filebrowser": "dev-master",
         "symfony/var-dumper": "^5.3",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+        "monolog/monolog": "^2.3"
     }
 }

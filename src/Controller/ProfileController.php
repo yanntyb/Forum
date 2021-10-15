@@ -16,9 +16,18 @@ class ProfileController
 
     public function changePass(string $newPass,User $user){
         (new UserManager)->changePass($newPass,$user->getId());
+        $this->logger->info("User change pass",
+            [
+                "user" => $user->getName(),
+            ]);
     }
 
     public function changeName(string $newName, User $user){
         (new UserManager)->changeName($newName, $user->getId());
+        $this->logger->info("User change name",
+            [
+                "user" => $user->getName(),
+                "new name" => $newName
+            ]);
     }
 }

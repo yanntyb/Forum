@@ -44,7 +44,8 @@ class UserManager
      * @param string $pass
      * @return bool
      */
-    public function insertUser($mail){
+    public function insertUser($mail): bool
+    {
         $conn = $this->db->prepare("INSERT INTO user (name, pass) VALUES (:name, :pass)");
         $conn->bindValue(":name", $this->sanitize($mail));
         $conn->bindValue(":pass","");
@@ -64,6 +65,12 @@ class UserManager
     public function changeName(string $newName, int $id){
         $conn = $this->db->prepare("UPDATE user SET name = :name WHERE id = :id");
         $conn->bindValue(":name", $this->sanitize($newName));
+        $conn->bindValue(":id", $id);
+        $conn->execute();
+    }
+
+    public function delete($id){
+        $conn = $this->db->prepare("DELETE FROM user WHERE id = :id");
         $conn->bindValue(":id", $id);
         $conn->execute();
     }

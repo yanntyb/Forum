@@ -50,8 +50,15 @@ class ArticleController
      */
     public function publish(string $title, string $content, int $category)
     {
-        $articleId = (new ArticleManager)->publish($title,$content,$category,unserialize($_SESSION["user"])->getId());
+        $user = unserialize($_SESSION["user"]);
+        $articleId = (new ArticleManager)->publish($title,$content,$category,$user->getId());
         if($articleId){
+            $this->logger->info("Article created",
+                [
+                    "title" => $title,
+                    "user" => $user->getName(),
+                    "user role" => $user->getRole()->getName()
+                ]);
             return $articleId;
         }
         return false;
@@ -70,6 +77,12 @@ class ArticleController
         if($article){
             if($article->getUser()->getId() === $user->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){
                 (new ArticleManager)->deleteById($articleId);
+                $this->logger->info("Article deleted",
+                    [
+                        "title" => $article->getTitle(),
+                        "user" => $user->getName(),
+                        "user role" => $user->getRole()->getName()
+                    ]);
                 return true;
             }
             else{
@@ -93,6 +106,12 @@ class ArticleController
         if((new ArticleManager)->getSingleEntity($articleId)){
             $comment = (new CommentManager)->addComment($content,$articleId,$user->getId());
             if($comment){
+                $this->logger->info("Comment added",
+                    [
+                        "title" => (new CommentManager)->getSingleEntity($comment)->getContent(),
+                        "user" => $user->getName(),
+                        "user role" => $user->getRole()->getName()
+                    ]);
                 return $comment;
             }
             return false;
@@ -113,6 +132,12 @@ class ArticleController
             if((new CategoryManager)->getSingleEntity($cat)){
                 if($user->getId() === $article->getUser()->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode"){
                     (new ArticleManager)->edit($title, $content, $id, $cat);
+                    $this->logger->info("Article edited",
+                        [
+                            "article name" => (new ArticleManager)->getSingleEntity($article->getId())->getTitle(),
+                            "user" => $user->getName(),
+                            "user role" => $user->getRole()->getName()
+                        ]);
                 }
             }
 
@@ -123,6 +148,23 @@ class ArticleController
         $article = (new ArticleManager)->getSingleEntity($id);
         if($article && ($article->getUser()->getId() === $user->getId() || $user->getRole()->getName() === "admin" || $user->getRole()->getName() === "mode")){
             (new ArticleManager)->archive($id, $article->getArchive());
+            if($article->getArchive() === 1){
+                $this->logger->info("Article unarchived",
+                    [
+                        "title" => $article->getTitle(),
+                        "user" => $user->getName(),
+                        "user role" => $user->getRole()->getName()
+                    ]);
+            }
+            else{
+                $this->logger->info("Article archived",
+                    [
+                        "title" => $article->getTitle(),
+                        "user" => $user->getName(),
+                        "user role" => $user->getRole()->getName()
+                    ]);
+            }
+
         }
     }
 }

@@ -11,8 +11,15 @@ class CategoryController
 
     public function delete(int $catId,User $user){
         if($user->getRole()->getName() === "admin"){
-            if((new CategoryManager)->getSingleEntity($catId)){
+            $category = (new CategoryManager)->getSingleEntity($catId);
+            if($category){
                 (new CategoryManager)->delete($catId);
+                $this->logger->info("Category deleted",
+                    [
+                        "title" => $category->getTitle(),
+                        "user" => $user->getName(),
+                        "user role" => $user->getRole()->getName()
+                    ]);
             }
         }
     }
@@ -28,11 +35,20 @@ class CategoryController
      * Create a category
      * @param string $title
      * @param $content
+     * @param $color
      * @return bool
      */
     public function publish(string $title, $content, $color): bool
     {
+        $user = unserialize($_SESSION["user"]);
+        $this->logger->info("New category",
+            [
+                "title" => $title,
+                "user" => $user->getName(),
+                "user role" => $user->getRole()->getName()
+            ]);
         return (new CategoryManager)->publish($title, $content, $color);
+
     }
 
     public function edit($id, $user){
@@ -56,6 +72,22 @@ class CategoryController
         $category = (new CategoryManager)->getSingleEntity($id);
         if($category && $user->getRole()->getName() === "admin"){
             (new CategoryManager)->archive($id, $category->getArchive());
+            if($category->getArchive() === 0){
+                $this->logger->info("Category archived",
+                    [
+                        "title" => $category->getName(),
+                        "user" => $user->getName(),
+                        "user role" => $user->getRole()->getName()
+                    ]);
+            }
+            else{
+                $this->logger->info("Category unarchived",
+                    [
+                        "title" => $category->getName(),
+                        "user" => $user->getName(),
+                        "user role" => $user->getRole()->getName()
+                    ]);
+            }
         }
     }
 }

@@ -1,0 +1,34 @@
+.action a{
+    width: 100%;
+    border-radius:28px;
+    border:1px solid #18ab29;
+    display:inline-block;
+    text-align:center;
+    cursor:pointer;
+    color:#ffffff;
+    font-size:17px;
+    padding:16px 31px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #2f6627;
+}
+
+.delete{
+    background-color:indianred;
+}
+
+.delete:hover{
+    background-color:darkred;
+    color: white !important;
+}
+
+.modif{
+    background-color:cornflowerblue;
+}
+
+.modif:hover{
+    background-color:darkblue;
+}
+
+.home-article-content{
+    align-items:center;
+}
