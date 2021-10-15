@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b83603c2-5760-4b8b-bcc0-3c0e3e6ecf63" name="Changes" comment="archiver article&#10;FINI">
-      <change afterPath="$PROJECT_DIR$/View/Home/admin.view.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/View/assets/admin.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/log.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/LogManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Forum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Forum.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/Home/guest.view.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Home/guest.view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/_partials/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/_partials/navbar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/assets/delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/View/assets/delete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ArticleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CommentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Classes/Manager/UserManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Classes/Manager/UserManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Traits/RenderViewTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Traits/RenderViewTrait.php" afterDir="false" />
-    </list>
+    <list default="true" id="b83603c2-5760-4b8b-bcc0-3c0e3e6ecf63" name="Changes" comment="log finish + admin page" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="sympho" />
+        <entry key="$PROJECT_DIR$" value="monolog" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -132,7 +109,7 @@
       <workItem from="1634112418517" duration="1862000" />
       <workItem from="1634114708731" duration="8050000" />
       <workItem from="1634197042913" duration="11844000" />
-      <workItem from="1634280388727" duration="9312000" />
+      <workItem from="1634280388727" duration="9611000" />
     </task>
     <task id="LOCAL-00001" summary="Base structure">
       <created>1633439841497</created>
@@ -379,7 +356,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634210498843</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="log finish + admin page">
+      <created>1634291240410</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1634291240410</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,7 +383,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="delete icone + manager fonction + router" />
     <MESSAGE value="ajax delete article" />
     <MESSAGE value="role gestion for deleting post" />
     <MESSAGE value="single.view.php l32 to fix" />
@@ -424,7 +407,8 @@
     <MESSAGE value="creation d'article appartenant a une categorie en fonction du role de l'user et de letat d'archivement de la categorie" />
     <MESSAGE value="passage a composer fini" />
     <MESSAGE value="archiver article&#10;FINI" />
-    <option name="LAST_COMMIT_MESSAGE" value="archiver article&#10;FINI" />
+    <MESSAGE value="log finish + admin page" />
+    <option name="LAST_COMMIT_MESSAGE" value="log finish + admin page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
